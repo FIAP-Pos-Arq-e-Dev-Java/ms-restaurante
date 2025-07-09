@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: API de Gerenciamento de Usuários
+  version: 1.0.0
+  description: Aplicação que realiza o gerenciamento de usuários e restaurantes.
+
+tags:
+  - name: Itens cardapio
+    description: Endpoints para gerenciamento de itens do cardapio
+  - name: Restaurante
+    description: Endpoints para gerenciamento de restaurantes
+
+paths:
+  /restaurantes:
+    get:
+      tags:
+        - Restaurante
+      summary: Consultar restaurante por usuário
+      description: Consultar um restaurante previamente cadastrado pelo nome de usuário.
+      operationId: BuscarRestaurante
+      parameters:
+        - name: usuario
+          in: query
+          required: true
+          schema:
+            type: string
+          example: xpto
+      responses:
+        '200':
+          description: Restaurante encontrado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '404':
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - Restaurante
+      summary: Criar um novo restaurante
+      description: Criar um novo restaurante, com dados pessoais.
+      operationId: InserirRestaurante
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+      responses:
+        '201':
+          description: Restaurante criado com sucesso
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Usuário ou documento já existente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /restaurantes/{usuario}:
+    patch:
+      tags:
+        - Restaurante
+      summary: Atualizar dados do restaurante
+      description: Rota para atualizar os dados de um restaurante previamente cadastrado.
+      operationId: AtualizarRestaurante
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          description: Nome de usuário do restaurante
+          schema:
+            type: string
+            example: restaurante123
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AtualizarUsuarioRequest'
+      responses:
+        '200':
+          description: Dados do restaurante atualizados com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Senha antiga incorreta
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+        - Restaurante
+      summary: Remover restaurante
+      description: Remove um restaurante previamente cadastrado com base no nome de usuário.
+      operationId: DeletarRestaurante
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: string
+          example: saborcaseiro
+      responses:
+        '204':
+          description: Restaurante removido com sucesso
+        '404':
+          description: Restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: João da Silva
+        email:
+          type: string
+          format: email
+          example: joao@email.com
+        endereco:
+          type: string
+          example: Rua das Flores, 123
+        telefone:
+          type: string
+          example: "+55 11 91234-5678"
+        usuario:
+          type: string
+          example: joaosilva123
+      required:
+        - nome
+        - email
+        - endereco
+        - telefone
+        - usuario
+
+    AtualizarUsuarioRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: João da Silva
+        email:
+          type: string
+          format: email
+          example: joao@email.com
+        endereco:
+          type: string
+          example: Rua das Flores, 123
+        telefone:
+          type: string
+          example: "+55 11 91234-5678"
+      required:
+        - nome
+        - email
+        - endereco
+        - telefone
+
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2025-05-14T15:42:00Z"
+        status:
+          type: integer
+          example: 404
+        error:
+          type: string
+          example: "Not Found"
+        message:
+          type: string
+          example: "Usuário não encontrado"
+        path:
+          type: string
+          example: "/ms-usuario/v1/usuario"
