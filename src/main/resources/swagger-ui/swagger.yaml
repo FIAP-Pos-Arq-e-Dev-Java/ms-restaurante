@@ -1,39 +1,62 @@
 openapi: 3.0.3
 info:
-  title: API de Gerenciamento de Usuários
+  title: API de Gerenciamento de Usuários e Restaurantes
   version: 1.0.0
-  description: Aplicação que realiza o gerenciamento de usuários e restaurantes.
+  description: API para gerenciamento de usuários, restaurantes e itens do cardápio.
 
 tags:
-  - name: Itens cardapio
-    description: Endpoints para gerenciamento de itens do cardapio
+  - name: ItensCardapio
+    description: Operações relacionadas aos itens do cardápio
   - name: Restaurante
-    description: Endpoints para gerenciamento de restaurantes
+    description: Operações relacionadas aos restaurantes
 
 paths:
-  /restaurantes:
+
+  # Rotas Itens do Cardápio
+
+  /itens-cardapio/{id}:
     get:
-      tags:
-        - Restaurante
-      summary: Consultar restaurante por usuário
-      description: Consultar um restaurante previamente cadastrado pelo nome de usuário.
-      operationId: BuscarRestaurante
+      tags: [ ItensCardapio ]
+      summary: Buscar item do cardápio por ID (admin/debug)
+      operationId: listaItensCardapioPorID
       parameters:
-        - name: usuario
-          in: query
+        - name: id
+          in: path
           required: true
-          schema:
-            type: string
-          example: xpto
+          schema: { type: integer }
       responses:
         '200':
-          description: Restaurante encontrado com sucesso.
+          description: Item encontrado
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usuario'
+                $ref: '#/components/schemas/ItemCardapio'
+
+  /restaurantes/{usuario}/itens-cardapio:
+    get:
+      tags:
+        - ItensCardapio
+      summary: Listar todos os itens do cardápio de um restaurante pelo id do dono
+      description: Retorna todos os itens do cardápio de um restaurante identificado pelo usuário.
+      operationId: listarItensCardapio
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      responses:
+        '200':
+          description: Lista de itens retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemCardapio'
         '404':
-          description: Usuário não encontrado
+          description: Restaurante não encontrado
           content:
             application/json:
               schema:
@@ -47,16 +70,208 @@ paths:
 
     post:
       tags:
-        - Restaurante
-      summary: Criar um novo restaurante
-      description: Criar um novo restaurante, com dados pessoais.
-      operationId: InserirRestaurante
+        - ItensCardapio
+      summary: Criar novo item no cardápio de um restaurante
+      description: Adiciona um novo item ao cardápio de um restaurante identificado pelo usuário.
+      operationId: criarItemCardapio
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Usuario'
+              $ref: '#/components/schemas/ItemCardapio'
+      responses:
+        '201':
+          description: Item criado com sucesso
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /restaurantes/{usuario}/itens-cardapio/{idItem}:
+    get:
+      tags:
+        - ItensCardapio
+      summary: Buscar item do cardápio por ID
+      description: Retorna um item específico do cardápio pelo ID para um restaurante identificado pelo usuário.
+      operationId: buscarItemCardapioPorId
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+        - name: idItem
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 101
+      responses:
+        '200':
+          description: Item encontrado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCardapio'
+        '404':
+          description: Item ou restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    patch:
+      tags:
+        - ItensCardapio
+      summary: Atualizar item do cardápio
+      description: Atualiza um item existente no cardápio de um restaurante identificado pelo usuário.
+      operationId: atualizarItemCardapio
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+        - name: idItem
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 101
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCardapioRequest'
+      responses:
+        '200':
+          description: Item atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCardapio'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Item ou restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - ItensCardapio
+      summary: Remover item do cardápio
+      description: Remove um item do cardápio de um restaurante identificado pelo usuário.
+      operationId: deletarItemCardapio
+      parameters:
+        - name: usuario
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+        - name: idItem
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 101
+      responses:
+        '204':
+          description: Item removido com sucesso
+        '404':
+          description: Item ou restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+
+  # Rotas Restaurante
+  /restaurantes:
+    get:
+      tags:
+        - Restaurante
+      summary: Listar todos os restaurantes
+      description: Retorna uma lista de todos os restaurantes cadastrados.
+      operationId: listarRestaurantes
+      responses:
+        '200':
+          description: Lista de restaurantes retornada com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurante'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+    post:
+      tags:
+        - Restaurante
+      summary: Criar novo restaurante
+      description: Cria um novo restaurante com os dados fornecidos, incluindo o dono (usuário responsável).
+      operationId: criarRestaurante
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestauranteRequest'
       responses:
         '201':
           description: Restaurante criado com sucesso
@@ -67,7 +282,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Usuário ou documento já existente
+          description: Restaurante ou usuário dono já existe
           content:
             application/json:
               schema:
@@ -80,47 +295,28 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 
   /restaurantes/{usuario}:
-    patch:
+    get:
       tags:
         - Restaurante
-      summary: Atualizar dados do restaurante
-      description: Rota para atualizar os dados de um restaurante previamente cadastrado.
-      operationId: AtualizarRestaurante
+      summary: Buscar restaurante pelo nome do usuário (dono)
+      description: Retorna um restaurante pelo nome de usuário do dono.
+      operationId: buscarRestaurantePorUsuario
       parameters:
         - name: usuario
           in: path
           required: true
-          description: Nome de usuário do restaurante
           schema:
-            type: string
-            example: restaurante123
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AtualizarUsuarioRequest'
+            type: integer
+          example: 1
       responses:
         '200':
-          description: Dados do restaurante atualizados com sucesso.
+          description: Restaurante encontrado com sucesso
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Usuario'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '401':
-          description: Senha antiga incorreta
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/Restaurante'
         '404':
-          description: Usuário não encontrado
+          description: Restaurante não encontrado
           content:
             application/json:
               schema:
@@ -131,19 +327,66 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
+  /restaurantes/{id}:
+    patch:
+      tags:
+        - Restaurante
+      summary: Atualizar dados do restaurante
+      description: Atualiza os dados de um restaurante existente identificado pelo nome do usuário do dono.
+      operationId: atualizarRestaurante
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestauranteRequest'
+      responses:
+        '200':
+          description: Restaurante atualizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Restaurante'
+        '400':
+          description: Requisição inválida
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Restaurante não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Erro interno do servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
     delete:
       tags:
         - Restaurante
       summary: Remover restaurante
-      description: Remove um restaurante previamente cadastrado com base no nome de usuário.
-      operationId: DeletarRestaurante
+      description: Remove um restaurante identificado pelo nome do usuário do dono.
+      operationId: deletarRestaurante
       parameters:
-        - name: usuario
+        - name: id
           in: path
           required: true
           schema:
             type: string
-          example: saborcaseiro
+          example: restaurante123
       responses:
         '204':
           description: Restaurante removido com sucesso
@@ -160,27 +403,83 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+
 components:
   schemas:
+
+    ItemCardapio:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Pizza Margherita"
+        descricao:
+          type: string
+          example: "Pizza tradicional com molho de tomate, mussarela e manjericão"
+        preco:
+          type: number
+          format: float
+          example: 39.90
+        disponibilidade:
+          type: string
+          description: "Disponibilidade para pedir apenas no restaurante"
+          example: "Consumo no local"
+        foto:
+          type: string
+          description: "Caminho da imagem do prato"
+          example: "/imagens/cardapio/pizza-margherita.jpg"
+      required:
+        - nome
+        - descricao
+        - preco
+        - disponibilidade
+        - foto
+
+    ItemCardapioRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Pizza Margherita"
+        descricao:
+          type: string
+          example: "Pizza tradicional com molho de tomate, mussarela e manjericão"
+        preco:
+          type: number
+          format: float
+          example: 39.90
+        disponibilidade:
+          type: string
+          example: "Consumo no local"
+        foto:
+          type: string
+          example: "/imagens/cardapio/pizza-margherita-nova.jpg"
+      required:
+        - nome
+        - descricao
+        - preco
+        - disponibilidade
+        - foto
+
     Usuario:
       type: object
       properties:
         nome:
           type: string
-          example: João da Silva
+          example: "João da Silva"
         email:
           type: string
           format: email
-          example: joao@email.com
+          example: "joao@email.com"
         endereco:
           type: string
-          example: Rua das Flores, 123
+          example: "Rua das Flores, 123"
         telefone:
           type: string
           example: "+55 11 91234-5678"
         usuario:
           type: string
-          example: joaosilva123
+          example: "joaosilva123"
       required:
         - nome
         - email
@@ -188,27 +487,53 @@ components:
         - telefone
         - usuario
 
-    AtualizarUsuarioRequest:
+    Restaurante:
       type: object
       properties:
         nome:
           type: string
-          example: João da Silva
-        email:
-          type: string
-          format: email
-          example: joao@email.com
+          example: "Sabor Caseiro"
         endereco:
           type: string
-          example: Rua das Flores, 123
-        telefone:
+          example: "Av. Brasil, 456"
+        tipoCozinha:
           type: string
-          example: "+55 11 91234-5678"
+          example: "Comida Caseira"
+        horarioFuncionamento:
+          type: string
+          example: "10:00 - 22:00"
+        dono:
+          $ref: '#/components/schemas/Usuario'
       required:
         - nome
-        - email
         - endereco
-        - telefone
+        - tipoCozinha
+        - horarioFuncionamento
+        - dono
+
+    RestauranteRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Sabor Caseiro"
+        endereco:
+          type: string
+          example: "Av. Brasil, 456"
+        tipoCozinha:
+          type: string
+          example: "Comida Caseira"
+        horarioFuncionamento:
+          type: string
+          example: "10:00 - 22:00"
+        dono:
+          $ref: '#/components/schemas/Usuario'
+      required:
+        - nome
+        - endereco
+        - tipoCozinha
+        - horarioFuncionamento
+        - dono
 
     ErrorResponse:
       type: object
@@ -225,7 +550,7 @@ components:
           example: "Not Found"
         message:
           type: string
-          example: "Usuário não encontrado"
+          example: "Recurso não encontrado"
         path:
           type: string
-          example: "/ms-usuario/v1/usuario"
+          example: "/restaurantes/restaurante123/itens-cardapio"
