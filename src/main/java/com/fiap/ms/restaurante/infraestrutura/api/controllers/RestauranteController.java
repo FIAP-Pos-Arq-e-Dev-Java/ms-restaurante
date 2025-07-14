@@ -1,4 +1,4 @@
-package com.fiap.ms.restaurante.controller;
+package com.fiap.ms.restaurante.infraestrutura.api.controllers;
 
 import com.fiap.ms.restauranteDomain.RestauranteApi;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteDto;

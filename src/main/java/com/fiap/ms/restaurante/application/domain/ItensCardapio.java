@@ -1,4 +1,4 @@
-package com.fiap.ms.restaurante.core.domain.entities;
+package com.fiap.ms.restaurante.application.domain;
 
 import java.math.BigDecimal;
 

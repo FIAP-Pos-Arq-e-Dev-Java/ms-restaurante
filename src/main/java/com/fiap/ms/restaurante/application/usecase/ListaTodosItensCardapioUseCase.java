@@ -1,4 +1,4 @@
-package com.fiap.ms.restaurante.core.domain.usecase;
+package com.fiap.ms.restaurante.application.usecase;
 
 public interface ListaTodosItensCardapioUseCase {
 }
