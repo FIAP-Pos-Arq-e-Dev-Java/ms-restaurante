@@ -9,6 +9,8 @@ tags:
     description: Operações relacionadas aos itens do cardápio
   - name: Restaurante
     description: Operações relacionadas aos restaurantes
+  - name: TipoCozinha
+    description: Dominios de tipos de cozinhas
 
 paths:
 
@@ -403,9 +405,106 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+  /tipos-cozinha:
+    post:
+      tags:
+        - TipoCozinha
+      summary: Criar um novo tipo de cozinha
+      operationId: inserirTipoCozinha
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoCozinha'
+      responses:
+        '201':
+          description: Criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoCozinha'
+
+    get:
+      tags:
+        - TipoCozinha
+      summary: Buscar lista de tipos de cozinhas
+      operationId: buscarTiposCozinhas
+      parameters:
+        - in: query
+          name: codigo
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: descricao
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tipo de cozinha encontrado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TipoCozinha'
+        '404':
+          description: Tipo de cozinha não encontrado
+  /tipos-cozinha/{codigo}:
+    patch:
+      tags:
+        - TipoCozinha
+      summary: Atualizar tipo de cozinha por codigo
+      operationId: atualizarTipoCozinha
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TipoCozinha'
+      responses:
+        '204':
+          description: Atualizado com sucesso
+        '404':
+          description: Tipo de cozinha não encontrado
+    delete:
+      tags:
+        - TipoCozinha
+      summary: Deletar tipo de cozinha por codigo
+      operationId: deletarTipoCozinha
+      parameters:
+        - in: path
+          name: codigo
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Removido com sucesso
+        '404':
+          description: Tipo de cozinha não encontrado
+
 
 components:
   schemas:
+
+    codigo:
+      type: integer
+      format: int64
+      example: 1
+
+    descricao:
+      type: string
+      example: "Italiana"
 
     ItemCardapio:
       type: object
@@ -534,6 +633,14 @@ components:
         - tipoCozinha
         - horarioFuncionamento
         - dono
+
+    TipoCozinha:
+      type: object
+      properties:
+        codigo:
+          $ref: '#/components/schemas/codigo'
+        descricao:
+          $ref: '#/components/schemas/descricao'
 
     ErrorResponse:
       type: object
