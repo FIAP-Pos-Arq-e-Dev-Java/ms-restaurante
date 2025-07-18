@@ -15,42 +15,42 @@ tags:
 paths:
 
   # Rotas Itens do Cardápio
-
-  /itens-cardapio/{id}:
-    get:
-      tags: [ ItensCardapio ]
-      summary: Buscar item do cardápio por ID (admin/debug)
-      operationId: listaItensCardapioPorID
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema: { type: integer }
+  /itens-cardapio:
+    post:
+      tags:
+        - ItensCardapio
+      summary: Criar um novo item de cardápio
+      operationId: inserirItemCardapio
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemCardapioRequest'
       responses:
-        '200':
-          description: Item encontrado
+        '201':
+          description: Criado com sucesso
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ItemCardapio'
 
-  /restaurantes/{usuario}/itens-cardapio:
     get:
       tags:
         - ItensCardapio
-      summary: Listar todos os itens do cardápio de um restaurante pelo id do dono
-      description: Retorna todos os itens do cardápio de um restaurante identificado pelo usuário.
-      operationId: listarItensCardapio
+      summary: Buscar lista de itens do cardápio
+      operationId: buscarItensCardapio
       parameters:
-        - name: usuario
-          in: path
-          required: true
+        - in: query
+          name: nome
           schema:
-            type: integer
-          example: 1
+            type: string
+        - in: query
+          name: disponivelSomenteNoRestaurante
+          schema:
+            type: boolean
       responses:
         '200':
-          description: Lista de itens retornada com sucesso
+          description: Lista de itens do cardápio
           content:
             application/json:
               schema:
@@ -58,118 +58,21 @@ paths:
                 items:
                   $ref: '#/components/schemas/ItemCardapio'
         '404':
-          description: Restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          description: Nenhum item encontrado
 
-    post:
-      tags:
-        - ItensCardapio
-      summary: Criar novo item no cardápio de um restaurante
-      description: Adiciona um novo item ao cardápio de um restaurante identificado pelo usuário.
-      operationId: criarItemCardapio
-      parameters:
-        - name: usuario
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 1
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ItemCardapio'
-      responses:
-        '201':
-          description: Item criado com sucesso
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
-          description: Restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /restaurantes/{usuario}/itens-cardapio/{idItem}:
-    get:
-      tags:
-        - ItensCardapio
-      summary: Buscar item do cardápio por ID
-      description: Retorna um item específico do cardápio pelo ID para um restaurante identificado pelo usuário.
-      operationId: buscarItemCardapioPorId
-      parameters:
-        - name: usuario
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 1
-        - name: idItem
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 101
-      responses:
-        '200':
-          description: Item encontrado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ItemCardapio'
-        '404':
-          description: Item ou restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
+  /itens-cardapio/{id}:
     patch:
       tags:
         - ItensCardapio
-      summary: Atualizar item do cardápio
-      description: Atualiza um item existente no cardápio de um restaurante identificado pelo usuário.
+      summary: Atualizar item do cardápio por ID
       operationId: atualizarItemCardapio
       parameters:
-        - name: usuario
-          in: path
+        - in: path
+          name: id
           required: true
           schema:
             type: integer
-          example: 1
-        - name: idItem
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 101
+            format: int64
       requestBody:
         required: true
         content:
@@ -177,65 +80,28 @@ paths:
             schema:
               $ref: '#/components/schemas/ItemCardapioRequest'
       responses:
-        '200':
-          description: Item atualizado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ItemCardapio'
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+        '204':
+          description: Atualizado com sucesso
         '404':
-          description: Item ou restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          description: Item do cardápio não encontrado
 
     delete:
       tags:
         - ItensCardapio
-      summary: Remover item do cardápio
-      description: Remove um item do cardápio de um restaurante identificado pelo usuário.
+      summary: Deletar item do cardápio por ID
       operationId: deletarItemCardapio
       parameters:
-        - name: usuario
-          in: path
+        - in: path
+          name: id
           required: true
           schema:
             type: integer
-          example: 1
-        - name: idItem
-          in: path
-          required: true
-          schema:
-            type: integer
-          example: 101
+            format: int64
       responses:
         '204':
-          description: Item removido com sucesso
+          description: Removido com sucesso
         '404':
-          description: Item ou restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
+          description: Item do cardápio não encontrado
 
 
   # Rotas Restaurante
