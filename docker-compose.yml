@@ -1,0 +1,39 @@
+volumes:
+  mysql_data: {}
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: db-tc-grupo8
+      MYSQL_USER: adm123
+      MYSQL_PASSWORD: adm123
+      MYSQL_ROOT_PASSWORD: adm123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-ptechchallenge" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  ms_restaurante:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ms_restaurante:1
+    container_name: ms_restaurante
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_USERNAME=adm123
+      - SPRING_DATASOURCE_PASSWORD=adm123
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/db-tc-grupo8
+    ports:
+      - "9999:9999"
+    depends_on:
+      mysql:
+        condition: service_healthy

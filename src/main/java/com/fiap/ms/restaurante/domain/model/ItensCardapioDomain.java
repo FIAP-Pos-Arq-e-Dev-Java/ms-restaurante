@@ -11,7 +11,8 @@ public class ItensCardapioDomain {
     private String disponibilidade;
     private String foto;
 
-    public ItensCardapioDomain(String nome, String descricao, BigDecimal preco, String disponibilidade, String foto) {
+    public ItensCardapioDomain(Long id ,String nome, String descricao, BigDecimal preco, String disponibilidade, String foto) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
