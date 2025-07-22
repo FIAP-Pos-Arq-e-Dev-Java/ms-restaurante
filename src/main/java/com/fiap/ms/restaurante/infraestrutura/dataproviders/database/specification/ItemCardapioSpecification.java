@@ -1,15 +1,15 @@
 package com.fiap.ms.restaurante.infraestrutura.dataproviders.database.specification;
 
-import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.ItensCardapioEntity;
+import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.ItemCardapioEntity;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItensCardapioSpecification {
+public class ItemCardapioSpecification {
 
-    public static Specification<ItensCardapioEntity> filtrar(String nome, Boolean disponivelSomenteNoRestaurante) {
+    public static Specification<ItemCardapioEntity> filtrar(String nome, Boolean disponibilidadeConsumoLocal) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -17,8 +17,8 @@ public class ItensCardapioSpecification {
                 predicates.add(cb.like(cb.lower(root.get("nome")), "%" + nome + "%"));
             }
 
-            if(disponivelSomenteNoRestaurante != null){
-                predicates.add(cb.equal(root.get("disponibilidade"), disponivelSomenteNoRestaurante));
+            if(disponibilidadeConsumoLocal != null){
+                predicates.add(cb.equal(root.get("disponibilidadeConsumoLocal"), disponibilidadeConsumoLocal));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

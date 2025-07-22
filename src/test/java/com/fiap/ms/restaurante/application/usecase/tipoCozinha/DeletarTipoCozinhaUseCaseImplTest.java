@@ -3,7 +3,7 @@ package com.fiap.ms.restaurante.application.usecase.tipoCozinha;
 import com.fiap.ms.restaurante.application.gateways.TipoCozinha;
 import com.fiap.ms.restaurante.application.usecase.tipoCozinha.implementations.DeletarTipoCozinhaUseCaseImpl;
 import com.fiap.ms.restaurante.domain.domainService.TipoCozinhaDomainService;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaNaoExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoNaoExisteException;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,9 +47,9 @@ public class DeletarTipoCozinhaUseCaseImplTest {
 
     @Test
     void deleteTipoCozinha_codigoInvalido_tipoCozinhaNaoExisteException() {
-        when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(CODIGO)).thenThrow(new TipoCozinhaNaoExisteException());
+        when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(CODIGO)).thenThrow(new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
 
-        assertThrows(TipoCozinhaNaoExisteException.class, () -> deletarTipoCozinhaUseCase.deletar(CODIGO));
+        assertThrows(ObjetoNaoExisteException.class, () -> deletarTipoCozinhaUseCase.deletar(CODIGO));
 
         verify(tipoCozinhaDomainService, times(1)).buscarTipoCozinhaPorCodigo(CODIGO);
     }

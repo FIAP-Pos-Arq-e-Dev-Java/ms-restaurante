@@ -4,7 +4,7 @@ import com.fiap.ms.restaurante.application.gateways.TipoCozinha;
 import com.fiap.ms.restaurante.application.usecase.tipoCozinha.implementations.AtualizarTipoCozinhaUseCaseImpl;
 import com.fiap.ms.restaurante.domain.domainService.TipoCozinhaDomainService;
 import com.fiap.ms.restaurante.domain.exception.CampoObrigatorioException;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaNaoExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoNaoExisteException;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,9 +42,9 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
         Long codigo = 2L;
         TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomain();
 
-        when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo)).thenThrow(new TipoCozinhaNaoExisteException());
+        when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo)).thenThrow(new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
 
-        assertThrows(TipoCozinhaNaoExisteException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));
+        assertThrows(ObjetoNaoExisteException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));
 
         verify(tipoCozinhaDomainService, times(1)).buscarTipoCozinhaPorCodigo(codigo);
 

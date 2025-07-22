@@ -4,9 +4,9 @@ import com.fiap.ms.restaurante.application.usecase.itemCardapio.AtualizaItemCard
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.BuscaItemCardapioUseCase;
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.DeletaItemCardapioUseCase;
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.InserirItemCardapioUseCase;
-import com.fiap.ms.restaurante.domain.model.ItensCardapioDomain;
-import com.fiap.ms.restaurante.entrypoints.controllers.mappers.ItensCardapioDtoMapper;
-import com.fiap.ms.restauranteDomain.ItensCardapioApi;
+import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
+import com.fiap.ms.restaurante.entrypoints.controllers.mappers.ItemCardapioDtoMapper;
+import com.fiap.ms.restauranteDomain.ItemCardapioApi;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioDto;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 import lombok.extern.slf4j.Slf4j;
@@ -22,17 +22,17 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-public class ItensCardapioController implements ItensCardapioApi {
+public class ItemCardapioController implements ItemCardapioApi {
 
     private final InserirItemCardapioUseCase inserirUseCase;
     private final BuscaItemCardapioUseCase buscaUseCase;
     private final DeletaItemCardapioUseCase deletaUseCase;
     private final AtualizaItemCardapioUseCase atualizaUseCase;
 
-    public ItensCardapioController(InserirItemCardapioUseCase inserirItemCardapioUseCase,
-                                   BuscaItemCardapioUseCase buscaItemCardapioUseCase,
-                                   DeletaItemCardapioUseCase deletaItemCardapioUseCase,
-                                   AtualizaItemCardapioUseCase atualizaItemCardapioUseCase) {
+    public ItemCardapioController(InserirItemCardapioUseCase inserirItemCardapioUseCase,
+                                  BuscaItemCardapioUseCase buscaItemCardapioUseCase,
+                                  DeletaItemCardapioUseCase deletaItemCardapioUseCase,
+                                  AtualizaItemCardapioUseCase atualizaItemCardapioUseCase) {
         this.inserirUseCase = inserirItemCardapioUseCase;
         this.buscaUseCase = buscaItemCardapioUseCase;
         this.deletaUseCase = deletaItemCardapioUseCase;
@@ -41,16 +41,16 @@ public class ItensCardapioController implements ItensCardapioApi {
 
     @Override
     public ResponseEntity<Void> _atualizarItemCardapio(Long id, ItemCardapioRequestDto itemCardapioRequestDto) {
-        var domain = ItensCardapioDtoMapper.INSTANCE.toDomain(itemCardapioRequestDto);
+        var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
         atualizaUseCase.atualiza(id, domain);
         return ResponseEntity.status(201).build();
     }
 
     @Override
-    public ResponseEntity<List<ItemCardapioDto>> _buscarItensCardapio(String nome, Boolean disponivelSomenteNoRestaurante) {
-        List<ItensCardapioDomain> i = buscaUseCase.busca(nome, disponivelSomenteNoRestaurante);
-        List<ItemCardapioDto> dto = i.stream()
-                .map(ItensCardapioDtoMapper.INSTANCE::toDto)
+    public ResponseEntity<List<ItemCardapioDto>> _buscarItensCardapio(String nome, Boolean disponivelParaRetiradaNoLocal) {
+        List<ItemCardapioDomain> itensCardapioDomain = buscaUseCase.buscar(nome, disponivelParaRetiradaNoLocal);
+        List<ItemCardapioDto> dto = itensCardapioDomain.stream()
+                .map(ItemCardapioDtoMapper.INSTANCE::toItemCardapioDto)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(dto);
@@ -64,7 +64,7 @@ public class ItensCardapioController implements ItensCardapioApi {
 
     @Override
     public ResponseEntity<ItemCardapioDto> _inserirItemCardapio(ItemCardapioRequestDto itemCardapioRequestDto) {
-        var domain = ItensCardapioDtoMapper.INSTANCE.toDomain(itemCardapioRequestDto);
+        var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
         inserirUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

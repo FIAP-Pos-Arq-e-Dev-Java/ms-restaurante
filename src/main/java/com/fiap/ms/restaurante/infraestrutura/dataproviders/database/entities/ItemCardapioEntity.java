@@ -11,15 +11,21 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="tb_itens_cardapio")
-public class ItensCardapioEntity {
+@Table(name="tb_item_cardapio")
+public class ItemCardapioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
     private String descricao;
+
     private BigDecimal preco;
-    private String disponibilidade;
+
+    @Column(name = "disponibilidade_consumo_local")
+    private Boolean disponibilidadeConsumoLocal;
+
     private String foto;
 }

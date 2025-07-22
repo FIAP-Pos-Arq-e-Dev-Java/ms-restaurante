@@ -1,6 +1,6 @@
 package com.fiap.ms.restaurante.entrypoints.controllers.mappers;
 
-import com.fiap.ms.restaurante.domain.model.ItensCardapioDomain;
+import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioDto;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 import org.mapstruct.Mapper;
@@ -9,12 +9,12 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
-public interface ItensCardapioDtoMapper {
+public interface ItemCardapioDtoMapper {
 
-    ItensCardapioDtoMapper INSTANCE = Mappers.getMapper(ItensCardapioDtoMapper.class);
+    ItemCardapioDtoMapper INSTANCE = Mappers.getMapper(ItemCardapioDtoMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    ItensCardapioDomain toDomain(ItemCardapioRequestDto itemCardapioRequestDto);
+    ItemCardapioDomain toItemCardapioDomain(ItemCardapioRequestDto itemCardapioRequestDto);
 
-    ItemCardapioDto toDto(ItensCardapioDomain itemCardapioDomain);
+    ItemCardapioDto toItemCardapioDto(ItemCardapioDomain itemCardapioDomain);
 }

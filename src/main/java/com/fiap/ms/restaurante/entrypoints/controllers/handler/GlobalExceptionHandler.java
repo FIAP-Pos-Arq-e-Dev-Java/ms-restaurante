@@ -1,8 +1,8 @@
 package com.fiap.ms.restaurante.entrypoints.controllers.handler;
 
 import com.fiap.ms.restaurante.domain.exception.CampoObrigatorioException;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaJaExisteException;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaNaoExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoJaExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoNaoExisteException;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,8 +33,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TipoCozinhaJaExisteException.class)
-    public ResponseEntity<Object> handleTipoCozinhaJaExisteException(TipoCozinhaJaExisteException ex, WebRequest request) {
+    @ExceptionHandler(ObjetoJaExisteException.class)
+    public ResponseEntity<Object> handleTipoCozinhaJaExisteException(ObjetoJaExisteException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", OffsetDateTime.now());
@@ -46,8 +46,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(TipoCozinhaNaoExisteException.class)
-    public ResponseEntity<Object> handleTipoCozinhaNaoExisteException(TipoCozinhaNaoExisteException ex, WebRequest request) {
+    @ExceptionHandler(ObjetoNaoExisteException.class)
+    public ResponseEntity<Object> handleTipoCozinhaNaoExisteException(ObjetoNaoExisteException ex, WebRequest request) {
 
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", OffsetDateTime.now());

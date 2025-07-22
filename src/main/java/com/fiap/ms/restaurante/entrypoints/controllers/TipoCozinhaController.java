@@ -60,7 +60,7 @@ public class TipoCozinhaController implements TipoCozinhaApi {
     }
 
     @Override
-    public ResponseEntity<TipoCozinhaDto> _inserirTipoCozinha(TipoCozinhaDto tipoCozinhaDto) {
+    public ResponseEntity<Void> _inserirTipoCozinha(TipoCozinhaDto tipoCozinhaDto) {
         var domain = TipoCozinhaDtoMapper.INSTANCE.toDomain(tipoCozinhaDto);
         inserirTipoCozinhaUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
