@@ -2,25 +2,25 @@ package com.fiap.ms.restaurante.domain.model;
 
 import java.math.BigDecimal;
 
-public class ItensCardapioDomain {
+public class ItemCardapioDomain {
 
     private Long id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
-    private String disponibilidade;
+    private Boolean disponibilidadeConsumoLocal;
     private String foto;
 
-    public ItensCardapioDomain(Long id ,String nome, String descricao, BigDecimal preco, String disponibilidade, String foto) {
+    public ItemCardapioDomain(Long id , String nome, String descricao, BigDecimal preco, Boolean disponibilidadeConsumoLocal, String foto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.disponibilidade = disponibilidade;
+        this.disponibilidadeConsumoLocal = disponibilidadeConsumoLocal;
         this.foto = foto;
     }
 
-    public ItensCardapioDomain() {
+    public ItemCardapioDomain() {
     }
 
     public Long getId() {
@@ -55,12 +55,12 @@ public class ItensCardapioDomain {
         this.preco = preco;
     }
 
-    public String getDisponibilidade() {
-        return disponibilidade;
+    public Boolean getDisponibilidadeConsumoLocal() {
+        return disponibilidadeConsumoLocal;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
-        this.disponibilidade = disponibilidade;
+    public void setDisponibilidadeConsumoLocal(Boolean disponibilidadeConsumoLocal) {
+        this.disponibilidadeConsumoLocal = disponibilidadeConsumoLocal;
     }
 
     public String getFoto() {

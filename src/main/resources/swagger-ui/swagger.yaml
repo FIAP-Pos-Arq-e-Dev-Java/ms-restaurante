@@ -5,7 +5,7 @@ info:
   description: API para gerenciamento de usuários, restaurantes e itens do cardápio.
 
 tags:
-  - name: ItensCardapio
+  - name: ItemCardapio
     description: Operações relacionadas aos itens do cardápio
   - name: Restaurante
     description: Operações relacionadas aos restaurantes
@@ -15,10 +15,10 @@ tags:
 paths:
 
   # Rotas Itens do Cardápio
-  /itens-cardapio:
+  /item-cardapio:
     post:
       tags:
-        - ItensCardapio
+        - ItemCardapio
       summary: Criar um novo item de cardápio
       operationId: inserirItemCardapio
       requestBody:
@@ -36,7 +36,7 @@ paths:
 
     get:
       tags:
-        - ItensCardapio
+        - ItemCardapio
       summary: Buscar lista de itens do cardápio
       operationId: buscarItensCardapio
       parameters:
@@ -45,7 +45,7 @@ paths:
           schema:
             type: string
         - in: query
-          name: disponivelSomenteNoRestaurante
+          name: disponibilidadeConsumoLocal
           schema:
             type: boolean
       responses:
@@ -60,10 +60,10 @@ paths:
         '404':
           description: Nenhum item encontrado
 
-  /itens-cardapio/{id}:
+  /item-cardapio/{id}:
     patch:
       tags:
-        - ItensCardapio
+        - ItemCardapio
       summary: Atualizar item do cardápio por ID
       operationId: atualizarItemCardapio
       parameters:
@@ -87,7 +87,7 @@ paths:
 
     delete:
       tags:
-        - ItensCardapio
+        - ItemCardapio
       summary: Deletar item do cardápio por ID
       operationId: deletarItemCardapio
       parameters:
@@ -286,10 +286,6 @@ paths:
       responses:
         '201':
           description: Criado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TipoCozinha'
 
     get:
       tags:
@@ -362,7 +358,6 @@ paths:
 
 components:
   schemas:
-
     codigo:
       type: integer
       format: int64
@@ -385,8 +380,8 @@ components:
           type: number
           format: float
           example: 39.90
-        disponibilidade:
-          type: string
+        disponibilidadeConsumoLocal:
+          type: boolean
           description: "Disponibilidade para pedir apenas no restaurante"
           example: "Consumo no local"
         foto:
@@ -397,11 +392,17 @@ components:
         - nome
         - descricao
         - preco
-        - disponibilidade
+        - disponibilidadeConsumoLocal
         - foto
 
     ItemCardapioRequest:
       type: object
+      required:
+        - nome
+        - descricao
+        - preco
+        - disponibilidadeConsumoLocal
+        - foto
       properties:
         nome:
           type: string
@@ -411,20 +412,14 @@ components:
           example: "Pizza tradicional com molho de tomate, mussarela e manjericão"
         preco:
           type: number
-          format: float
+          format: double
           example: 39.90
-        disponibilidade:
-          type: string
+        disponibilidadeConsumoLocal:
+          type: boolean
           example: "Consumo no local"
         foto:
           type: string
           example: "/imagens/cardapio/pizza-margherita-nova.jpg"
-      required:
-        - nome
-        - descricao
-        - preco
-        - disponibilidade
-        - foto
 
     Usuario:
       type: object

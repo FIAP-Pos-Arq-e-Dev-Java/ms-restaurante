@@ -1,8 +1,9 @@
 package com.fiap.ms.restaurante.application.usecase.itemCardapio.implementations;
 
-
-import com.fiap.ms.restaurante.application.gateways.ItensCardapio;
+import com.fiap.ms.restaurante.application.gateways.ItemCardapio;
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.DeletaItemCardapioUseCase;
+import com.fiap.ms.restaurante.domain.domainService.ItemCardapioDomainService;
+import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +11,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeletaItemCardapioUseCaseImpl implements DeletaItemCardapioUseCase {
 
-    private final ItensCardapio itensCardapio;
+    private final ItemCardapio itemCardapio;
+    private final ItemCardapioDomainService itemCardapioDomainService;
 
     @Override
     public void deletar(Long id) {
-        itensCardapio.findById(id)
-                .ifPresentOrElse(itensCardapio::deletar, () -> {
-                    throw new IllegalArgumentException("Item cardápio inexistente");
-                });
+        ItemCardapioDomain domain = itemCardapioDomainService.buscarItemCardapioPorId(id);
+        itemCardapio.deletar(domain);
     }
 }

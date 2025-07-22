@@ -1,8 +1,8 @@
 package com.fiap.ms.restaurante.domain.domainService.implementations;
 
 import com.fiap.ms.restaurante.application.gateways.TipoCozinha;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaJaExisteException;
-import com.fiap.ms.restaurante.domain.exception.TipoCozinhaNaoExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoJaExisteException;
+import com.fiap.ms.restaurante.domain.exception.ObjetoNaoExisteException;
 import com.fiap.ms.restaurante.domain.domainService.TipoCozinhaDomainService;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import lombok.RequiredArgsConstructor;
@@ -17,20 +17,20 @@ public class TipoCozinhaDomainServiceImpl implements TipoCozinhaDomainService {
     @Override
     public void checarExistenciaCodigo(Long codigo) {
         if (tipoCozinha.buscarPorCodigo(codigo).isPresent()) {
-            throw new TipoCozinhaJaExisteException();
+            throw new ObjetoJaExisteException("Código ou Descrição do Tipo cozinha já cadastrado.");
         }
     }
 
     @Override
     public void checarExistenciaDescricao(String descricao) {
         if (tipoCozinha.buscarPorDescricao(descricao.trim()).isPresent()) {
-            throw new TipoCozinhaJaExisteException();
+            throw new ObjetoJaExisteException("Código ou Descrição do Tipo cozinha já cadastrado.");
         }
     }
 
     @Override
     public TipoCozinhaDomain buscarTipoCozinhaPorCodigo(Long codigo) {
         return tipoCozinha.buscarPorCodigo(codigo)
-                .orElseThrow(TipoCozinhaNaoExisteException::new);
+                .orElseThrow(() -> new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
     }
 }
