@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getListTipoCozinhaDomain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,15 +45,17 @@ public class BuscarTipoCozinhaUseCaseImplTest {
 
     @Test
     void buscarTipoCozinha_filtroCodigo_sucesso() {
+        UUID uuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
+
         List<TipoCozinhaDomain> listaTipoCozinha = getListTipoCozinhaDomain();
 
-        when(tipoCozinha.buscar(1L, null)).thenReturn(listaTipoCozinha);
+        when(tipoCozinha.buscar(uuid, null)).thenReturn(listaTipoCozinha);
 
-        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(1L, null);
+        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(uuid, null);
 
         assertNotNull(result);
         assertEquals(listaTipoCozinha.size(), result.size());
-        verify(tipoCozinha, times(1)).buscar(1L, null);
+        verify(tipoCozinha, times(1)).buscar(uuid, null);
     }
 
     @Test
@@ -70,26 +73,30 @@ public class BuscarTipoCozinhaUseCaseImplTest {
 
     @Test
     void buscarTipoCozinha_todosOsFiltros_sucesso() {
+        UUID uuid = UUID.fromString("11111111-1111-1111-1111-111111111111");
+
         List<TipoCozinhaDomain> listaTipoCozinha = getListTipoCozinhaDomain();
 
-        when(tipoCozinha.buscar(1L, "Italiana")).thenReturn(listaTipoCozinha);
+        when(tipoCozinha.buscar(uuid, "Italiana")).thenReturn(listaTipoCozinha);
 
-        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(1L, "Italiana");
+        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(uuid, "Italiana");
 
         assertNotNull(result);
         assertEquals(listaTipoCozinha.size(), result.size());
-        verify(tipoCozinha, times(1)).buscar(1L, "Italiana");
+        verify(tipoCozinha, times(1)).buscar(uuid, "Italiana");
     }
 
     @Test
     void buscarTipoCozinha_semRetorno_sucesso() {
-        when(tipoCozinha.buscar(3L, null)).thenReturn(Collections.emptyList());
+        UUID uuid = UUID.randomUUID();
 
-        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(3L, null);
+        when(tipoCozinha.buscar(uuid, null)).thenReturn(Collections.emptyList());
+
+        List<TipoCozinhaDomain> result = buscarTipoCozinhaUseCase.buscar(uuid, null);
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
-        verify(tipoCozinha, times(1)).buscar(3L, null);
+        verify(tipoCozinha, times(1)).buscar(uuid, null);
     }
 
 }
