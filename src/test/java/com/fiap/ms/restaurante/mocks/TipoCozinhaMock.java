@@ -17,7 +17,7 @@ public class TipoCozinhaMock {
     }
 
     public static List<TipoCozinhaDomain> getListTipoCozinhaDomain() {
-        TipoCozinhaDomain tipoCozinha1 = new TipoCozinhaDomain(UUID.fromString("11111111-1111-1111-1111-111111111111"), "Italiana");
+        TipoCozinhaDomain tipoCozinha1 = new TipoCozinhaDomain((UUID.fromString("11111111-1111-1111-1111-111111111111"), "Italiana");
         TipoCozinhaDomain tipoCozinha2 = new TipoCozinhaDomain(UUID.fromString("22222222-2222-2222-2222-222222222222"), "Francesa");
         return List.of(tipoCozinha1, tipoCozinha2);
     }
