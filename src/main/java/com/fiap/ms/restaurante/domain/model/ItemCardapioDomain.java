@@ -1,17 +1,18 @@
 package com.fiap.ms.restaurante.domain.model;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class ItemCardapioDomain {
 
-    private Long id;
+    private UUID id;
     private String nome;
     private String descricao;
     private BigDecimal preco;
     private Boolean disponibilidadeConsumoLocal;
     private String foto;
 
-    public ItemCardapioDomain(Long id , String nome, String descricao, BigDecimal preco, Boolean disponibilidadeConsumoLocal, String foto) {
+    public ItemCardapioDomain(UUID id , String nome, String descricao, BigDecimal preco, Boolean disponibilidadeConsumoLocal, String foto) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -23,11 +24,11 @@ public class ItemCardapioDomain {
     public ItemCardapioDomain() {
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

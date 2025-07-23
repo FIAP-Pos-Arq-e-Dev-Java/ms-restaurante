@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
+import java.util.UUID;
 
-public interface ItemCardapioRepository extends JpaRepository<ItemCardapioEntity, Long>, JpaSpecificationExecutor<ItemCardapioEntity> {
+public interface ItemCardapioRepository extends JpaRepository<ItemCardapioEntity, UUID>, JpaSpecificationExecutor<ItemCardapioEntity> {
 
     Optional<ItemCardapioEntity> findByDescricaoIgnoreCase(String descricao);
 }

@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-public class ItemCardapioController implements ItemCardapioApi {
+public class ItemCardapioController implements ItemCardapioApi{
 
     private final InserirItemCardapioUseCase inserirUseCase;
     private final BuscaItemCardapioUseCase buscaUseCase;
@@ -40,15 +41,15 @@ public class ItemCardapioController implements ItemCardapioApi {
     }
 
     @Override
-    public ResponseEntity<Void> _atualizarItemCardapio(Long id, ItemCardapioRequestDto itemCardapioRequestDto) {
+    public ResponseEntity<Void> _atualizarItemCardapio(UUID id, ItemCardapioRequestDto itemCardapioRequestDto) {
         var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
         atualizaUseCase.atualiza(id, domain);
         return ResponseEntity.status(201).build();
     }
 
     @Override
-    public ResponseEntity<List<ItemCardapioDto>> _buscarItensCardapio(String nome, Boolean disponivelParaRetiradaNoLocal) {
-        List<ItemCardapioDomain> itensCardapioDomain = buscaUseCase.buscar(nome, disponivelParaRetiradaNoLocal);
+    public ResponseEntity<List<ItemCardapioDto>> _buscarItensCardapio(String nome, Boolean disponibilidadeConsumoLocal) {
+        List<ItemCardapioDomain> itensCardapioDomain = buscaUseCase.buscar(nome, disponibilidadeConsumoLocal);
         List<ItemCardapioDto> dto = itensCardapioDomain.stream()
                 .map(ItemCardapioDtoMapper.INSTANCE::toItemCardapioDto)
                 .collect(Collectors.toList());
@@ -57,7 +58,7 @@ public class ItemCardapioController implements ItemCardapioApi {
     }
 
     @Override
-    public ResponseEntity<Void> _deletarItemCardapio(Long id) {
+    public ResponseEntity<Void> _deletarItemCardapio(UUID id) {
         deletaUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }

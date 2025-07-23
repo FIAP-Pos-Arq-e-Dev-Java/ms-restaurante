@@ -4,25 +4,26 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.TipoCozinhaEntity;
 
 import java.util.List;
+import java.util.UUID;
 
 public class TipoCozinhaMock {
 
     public static TipoCozinhaDomain getTipoCozinhaDomain() {
-        return new TipoCozinhaDomain(1L, "Brasileira");
+        return new TipoCozinhaDomain(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"), "Brasileira");
     }
 
     public static TipoCozinhaDomain getTipoCozinhaDomainSemDescricao() {
-        return new TipoCozinhaDomain(99L, "   ");
+        return new TipoCozinhaDomain(UUID.fromString("00000000-0000-0000-0000-000000000099"), "   ");
     }
 
     public static List<TipoCozinhaDomain> getListTipoCozinhaDomain() {
-        TipoCozinhaDomain tipoCozinha1 = new TipoCozinhaDomain(1L, "Italiana");
-        TipoCozinhaDomain tipoCozinha2 = new TipoCozinhaDomain(2L, "Francesa");
+        TipoCozinhaDomain tipoCozinha1 = new TipoCozinhaDomain(UUID.fromString("11111111-1111-1111-1111-111111111111"), "Italiana");
+        TipoCozinhaDomain tipoCozinha2 = new TipoCozinhaDomain(UUID.fromString("22222222-2222-2222-2222-222222222222"), "Francesa");
         return List.of(tipoCozinha1, tipoCozinha2);
     }
 
     public static TipoCozinhaEntity getTipoCozinhaEntity() {
-        return new TipoCozinhaEntity(1L, "Brasileira");
+        return new TipoCozinhaEntity(UUID.fromString("550e8400-e29b-41d4-a716-446655440000"), "Brasileira");
     }
 
 }

@@ -8,6 +8,8 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class TipoCozinhaDomainServiceImpl implements TipoCozinhaDomainService {
@@ -15,7 +17,7 @@ public class TipoCozinhaDomainServiceImpl implements TipoCozinhaDomainService {
     private final TipoCozinha tipoCozinha;
 
     @Override
-    public void checarExistenciaCodigo(Long codigo) {
+    public void checarExistenciaCodigo(UUID codigo) {
         if (tipoCozinha.buscarPorCodigo(codigo).isPresent()) {
             throw new ObjetoJaExisteException("Código ou Descrição do Tipo cozinha já cadastrado.");
         }
@@ -29,7 +31,7 @@ public class TipoCozinhaDomainServiceImpl implements TipoCozinhaDomainService {
     }
 
     @Override
-    public TipoCozinhaDomain buscarTipoCozinhaPorCodigo(Long codigo) {
+    public TipoCozinhaDomain buscarTipoCozinhaPorCodigo(UUID codigo) {
         return tipoCozinha.buscarPorCodigo(codigo)
                 .orElseThrow(() -> new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
     }
