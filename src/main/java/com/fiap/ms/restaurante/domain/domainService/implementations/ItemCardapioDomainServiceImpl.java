@@ -8,6 +8,8 @@ import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class ItemCardapioDomainServiceImpl implements ItemCardapioDomainService {
@@ -22,7 +24,7 @@ public class ItemCardapioDomainServiceImpl implements ItemCardapioDomainService 
     }
 
     @Override
-    public ItemCardapioDomain buscarItemCardapioPorId(Long id) {
+    public ItemCardapioDomain buscarItemCardapioPorId(UUID id) {
         return itemCardapio.buscarPorId(id)
                 .orElseThrow(() -> new ObjetoNaoExisteException("O item de cardápio informado não está cadastrado."));
     }

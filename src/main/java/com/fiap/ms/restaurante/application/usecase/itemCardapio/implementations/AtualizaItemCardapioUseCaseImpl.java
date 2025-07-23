@@ -7,6 +7,8 @@ import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validar;
 
 @RequiredArgsConstructor
@@ -17,7 +19,7 @@ public class AtualizaItemCardapioUseCaseImpl implements AtualizaItemCardapioUseC
     private final ItemCardapioDomainService itemCardapioDomainService;
 
     @Override
-    public void atualiza(Long id, ItemCardapioDomain itemCardapioDomain) {
+    public void atualiza(UUID id, ItemCardapioDomain itemCardapioDomain) {
         validar(itemCardapioDomain.getDescricao());
 
         ItemCardapioDomain domain = itemCardapioDomainService.buscarItemCardapioPorId(id);

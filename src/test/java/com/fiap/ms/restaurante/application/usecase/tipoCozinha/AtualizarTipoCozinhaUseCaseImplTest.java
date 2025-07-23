@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
+
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getTipoCozinhaDomain;
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getTipoCozinhaDomainSemDescricao;
 import static org.junit.Assert.assertThrows;
@@ -39,7 +41,7 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
     @Test
     void atualizarTipoCozinha_naoEncontrado_tipoCozinhaNaoExisteException() {
-        Long codigo = 2L;
+        UUID codigo = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
         TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomain();
 
         when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo)).thenThrow(new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
@@ -52,7 +54,7 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
     @Test
     void atualizarTipoCozinha_descricaoNula_campoObrigatorioException() {
-        Long codigo = 2L;
+        UUID codigo = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
         TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomainSemDescricao();
 
         assertThrows(CampoObrigatorioException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));

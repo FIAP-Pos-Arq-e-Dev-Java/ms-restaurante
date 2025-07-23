@@ -6,10 +6,11 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class TipoCozinhaSpecification {
 
-    public static Specification<TipoCozinhaEntity> filtrar(Long codigo, String descricao) {
+    public static Specification<TipoCozinhaEntity> filtrar(UUID codigo, String descricao) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 

@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
 @Builder
@@ -15,6 +17,6 @@ import lombok.NoArgsConstructor;
 public class TipoCozinhaEntity {
 
     @Id
-    private Long codigo;
+    private UUID codigo;
     private String descricao;
 }

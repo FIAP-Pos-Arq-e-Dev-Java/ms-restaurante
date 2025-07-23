@@ -13,7 +13,6 @@ tags:
     description: Dominios de tipos de cozinhas
 
 paths:
-
   # Rotas Itens do Cardápio
   /item-cardapio:
     post:
@@ -71,8 +70,9 @@ paths:
           name: id
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       requestBody:
         required: true
         content:
@@ -95,8 +95,9 @@ paths:
           name: id
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       responses:
         '204':
           description: Removido com sucesso
@@ -174,8 +175,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
-          example: 1
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       responses:
         '200':
           description: Restaurante encontrado com sucesso
@@ -208,8 +210,9 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
-          example: 1
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       requestBody:
         required: true
         content:
@@ -254,7 +257,8 @@ paths:
           required: true
           schema:
             type: string
-          example: restaurante123
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       responses:
         '204':
           description: Restaurante removido com sucesso
@@ -296,8 +300,9 @@ paths:
         - in: query
           name: codigo
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
         - in: query
           name: descricao
           schema:
@@ -324,8 +329,9 @@ paths:
           name: codigo
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       requestBody:
         required: true
         content:
@@ -347,8 +353,9 @@ paths:
           name: codigo
           required: true
           schema:
-            type: integer
-            format: int64
+            type: string
+            format: uuid
+          example: '550e8400-e29b-41d4-a716-446655440000'
       responses:
         '204':
           description: Removido com sucesso
@@ -359,9 +366,9 @@ paths:
 components:
   schemas:
     codigo:
-      type: integer
-      format: int64
-      example: 1
+      type: string
+      format: uuid
+      example: '550e8400-e29b-41d4-a716-446655440000'
 
     descricao:
       type: string

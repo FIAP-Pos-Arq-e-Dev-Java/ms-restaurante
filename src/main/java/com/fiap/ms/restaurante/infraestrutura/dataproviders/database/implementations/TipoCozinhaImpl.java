@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class TipoCozinhaImpl implements TipoCozinha {
     }
 
     @Override
-    public Optional<TipoCozinhaDomain> buscarPorCodigo(Long codigo) {
+    public Optional<TipoCozinhaDomain> buscarPorCodigo(UUID codigo) {
         var entity = repository.findByCodigo(codigo);
         return entity.map(TipoCozinhaEntityMapper.INSTANCE::toTipoCozinhaDomain);
     }
@@ -42,7 +43,7 @@ public class TipoCozinhaImpl implements TipoCozinha {
     }
 
     @Override
-    public List<TipoCozinhaDomain> buscar(Long codigo, String descricao) {
+    public List<TipoCozinhaDomain> buscar(UUID codigo, String descricao) {
         var spec = TipoCozinhaSpecification.filtrar(codigo, descricao);
         return repository.findAll(spec)
                 .stream()

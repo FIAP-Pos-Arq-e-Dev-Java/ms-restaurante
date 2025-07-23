@@ -10,19 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
 @RequestMapping("/v1")
-public class RestauranteController  implements RestauranteApi {
+public class RestauranteController implements RestauranteApi{
 
     @Override
-    public ResponseEntity<RestauranteDto> _atualizarRestaurante(Integer id, RestauranteRequestDto restauranteRequestDto) {
+    public ResponseEntity<RestauranteDto> _atualizarRestaurante(UUID id, RestauranteRequestDto restauranteRequestDto) {
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<RestauranteDto> _buscarRestaurantePorUsuario(Integer usuario) {
+    public ResponseEntity<RestauranteDto> _buscarRestaurantePorUsuario(UUID usuario) {
         return ResponseEntity.noContent().build();
     }
 
@@ -32,7 +33,7 @@ public class RestauranteController  implements RestauranteApi {
     }
 
     @Override
-    public ResponseEntity<Void> _deletarRestaurante(String id) {
+    public ResponseEntity<Void> _deletarRestaurante(UUID id) {
         return ResponseEntity.noContent().build();
     }
 
