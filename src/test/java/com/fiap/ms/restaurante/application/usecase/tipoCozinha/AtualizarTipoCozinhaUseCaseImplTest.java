@@ -17,6 +17,7 @@ import java.util.UUID;
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getTipoCozinhaDomain;
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getTipoCozinhaDomainSemDescricao;
 import static org.junit.Assert.assertThrows;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,9 +36,17 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
     @Test
     void atualizarTipoCozinha_sucesso() {
+        TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomain();
+        when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(tipoCozinhaDomain.getCodigo())).thenReturn(tipoCozinhaDomain);
+        doNothing().when(tipoCozinhaDomainService).checarExistenciaDescricao(tipoCozinhaDomain.getDescricao());
+        doNothing().when(tipoCozinha).salvar(tipoCozinhaDomain);
 
+        atualizarTipoCozinha.atualizar(tipoCozinhaDomain.getCodigo(), tipoCozinhaDomain);
+
+        verify(tipoCozinhaDomainService, times(1)).buscarTipoCozinhaPorCodigo(tipoCozinhaDomain.getCodigo());
+        verify(tipoCozinhaDomainService, times(1)).checarExistenciaDescricao(tipoCozinhaDomain.getDescricao());
+        verify(tipoCozinha, times(1)).salvar(tipoCozinhaDomain);
     }
-
 
     @Test
     void atualizarTipoCozinha_naoEncontrado_tipoCozinhaNaoExisteException() {
@@ -49,7 +58,6 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
         assertThrows(ObjetoNaoExisteException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));
 
         verify(tipoCozinhaDomainService, times(1)).buscarTipoCozinhaPorCodigo(codigo);
-
     }
 
     @Test
@@ -59,11 +67,4 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
         assertThrows(CampoObrigatorioException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));
     }
-
-
-    @Test
-    void atualizarTipoCozinha_descricaoExistente_tipoCozinhaNaoExisteException() {
-
-    }
-
 }
