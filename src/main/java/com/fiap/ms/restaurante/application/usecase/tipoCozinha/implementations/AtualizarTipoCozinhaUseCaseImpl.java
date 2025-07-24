@@ -7,8 +7,6 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validar;
 
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class AtualizarTipoCozinhaUseCaseImpl implements AtualizarTipoCozinhaUseC
     private final TipoCozinhaDomainService tipoCozinhaDomainService;
 
     @Override
-    public void atualizar(UUID codigo, TipoCozinhaDomain tipoCozinhaDomain) {
+    public void atualizar(Long codigo, TipoCozinhaDomain tipoCozinhaDomain) {
         validar(tipoCozinhaDomain.getDescricao());
 
         TipoCozinhaDomain domain = tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo);

@@ -7,8 +7,6 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @Service
 public class DeletarTipoCozinhaUseCaseImpl implements DeletarTipoCozinhaUseCase {
@@ -17,7 +15,7 @@ public class DeletarTipoCozinhaUseCaseImpl implements DeletarTipoCozinhaUseCase 
     private final TipoCozinhaDomainService tipoCozinhaDomainService;
 
     @Override
-    public void deletar(UUID codigo) {
+    public void deletar(Long codigo) {
         TipoCozinhaDomain domain = tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo);
         tipoCozinha.deletar(domain);
     }

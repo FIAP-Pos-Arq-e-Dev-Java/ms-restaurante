@@ -31,25 +31,25 @@ public class AtualizaItemCardapioUseCaseImplTest {
     private ItemCardapioDomainService itemCardapioDomainService;
 
     @Test
-    void atualizaItemCardapio_sucesso() {
+    void atualizarItemCardapio_sucesso() {
         ItemCardapioDomain item = getItemCardapioDomainCompleto();
 
         when(itemCardapioDomainService.buscarItemCardapioPorId(item.getId())).thenReturn(item);
         doNothing().when(itemCardapio).salvar(item);
 
-        atualizaItemCardapioUseCase.atualiza(item.getId(), item);
+        atualizaItemCardapioUseCase.atualizar(item.getId(), item);
 
         verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(item.getId());
         verify(itemCardapio, times(1)).salvar(item);
     }
 
     @Test
-    void atualizaItemCardapio_idInexistente_objetoNaoExisteException() {
+    void atualizarItemCardapio_idInexistente_objetoNaoExisteException() {
         ItemCardapioDomain item = getItemCardapioDomainCompleto();
 
         when(itemCardapioDomainService.buscarItemCardapioPorId(item.getId())).thenThrow(ObjetoNaoExisteException.class);
 
-        assertThrows(ObjetoNaoExisteException.class, () -> atualizaItemCardapioUseCase.atualiza(item.getId(), item));
+        assertThrows(ObjetoNaoExisteException.class, () -> atualizaItemCardapioUseCase.atualizar(item.getId(), item));
 
         verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(item.getId());
     }

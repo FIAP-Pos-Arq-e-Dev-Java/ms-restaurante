@@ -19,7 +19,7 @@ public class AtualizaItemCardapioUseCaseImpl implements AtualizaItemCardapioUseC
     private final ItemCardapioDomainService itemCardapioDomainService;
 
     @Override
-    public void atualiza(UUID id, ItemCardapioDomain itemCardapioDomain) {
+    public void atualizar(UUID id, ItemCardapioDomain itemCardapioDomain) {
         validar(itemCardapioDomain.getDescricao());
 
         ItemCardapioDomain domain = itemCardapioDomainService.buscarItemCardapioPorId(id);

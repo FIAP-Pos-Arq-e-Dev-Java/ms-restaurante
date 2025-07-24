@@ -28,10 +28,6 @@ paths:
       responses:
         '201':
           description: Criado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ItemCardapio'
 
     get:
       tags:
@@ -275,7 +271,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /tipos-cozinha:
+  /tipo-cozinha:
     post:
       tags:
         - TipoCozinha
@@ -300,9 +296,8 @@ paths:
         - in: query
           name: codigo
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
         - in: query
           name: descricao
           schema:
@@ -318,7 +313,7 @@ paths:
                   $ref: '#/components/schemas/TipoCozinha'
         '404':
           description: Tipo de cozinha não encontrado
-  /tipos-cozinha/{codigo}:
+  /tipo-cozinha/{codigo}:
     patch:
       tags:
         - TipoCozinha
@@ -329,9 +324,8 @@ paths:
           name: codigo
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
       requestBody:
         required: true
         content:
@@ -353,9 +347,8 @@ paths:
           name: codigo
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
       responses:
         '204':
           description: Removido com sucesso
@@ -366,9 +359,9 @@ paths:
 components:
   schemas:
     codigo:
-      type: string
-      format: uuid
-      example: '550e8400-e29b-41d4-a716-446655440000'
+      type: integer
+      format: int64
+      example: 1
 
     descricao:
       type: string
@@ -528,4 +521,4 @@ components:
           example: "Recurso não encontrado"
         path:
           type: string
-          example: "/restaurantes/restaurante123/itens-cardapio"
+          example: "/restaurantes/restaurante123/item-cardapio"

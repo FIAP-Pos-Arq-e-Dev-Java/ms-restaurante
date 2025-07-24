@@ -50,7 +50,7 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
     @Test
     void atualizarTipoCozinha_naoEncontrado_tipoCozinhaNaoExisteException() {
-        UUID codigo = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        Long codigo = 1L;
         TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomain();
 
         when(tipoCozinhaDomainService.buscarTipoCozinhaPorCodigo(codigo)).thenThrow(new ObjetoNaoExisteException("Tipo cozinha não está cadastrada."));
@@ -62,7 +62,7 @@ public class AtualizarTipoCozinhaUseCaseImplTest {
 
     @Test
     void atualizarTipoCozinha_descricaoNula_campoObrigatorioException() {
-        UUID codigo = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        Long codigo = 1L;
         TipoCozinhaDomain tipoCozinhaDomain = getTipoCozinhaDomainSemDescricao();
 
         assertThrows(CampoObrigatorioException.class, () -> atualizarTipoCozinha.atualizar(codigo, tipoCozinhaDomain));

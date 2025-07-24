@@ -1,25 +1,23 @@
 package com.fiap.ms.restaurante.domain.model;
 
-import java.util.UUID;
-
 public class TipoCozinhaDomain {
 
-    private UUID codigo;
+    private Long codigo;
     private String descricao;
 
     public TipoCozinhaDomain(){
     }
 
-    public TipoCozinhaDomain(UUID codigo, String descricao) {
+    public TipoCozinhaDomain(Long codigo, String descricao) {
         this.codigo = codigo;
         this.descricao = descricao;
     }
 
-    public UUID getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(UUID codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
