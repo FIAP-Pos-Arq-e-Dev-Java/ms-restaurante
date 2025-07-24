@@ -2,6 +2,7 @@ package com.fiap.ms.restaurante.mocks;
 
 import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.ItemCardapioEntity;
+import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -80,4 +81,16 @@ public class ItemCardapioMock {
                 true,
                 "/imagens/cardapio/pizza-margherita.jpg");
     }
+
+    public static ItemCardapioRequestDto getItemCardapioRequestDto(){
+        ItemCardapioRequestDto itemCardapioRequestDto = new ItemCardapioRequestDto();
+        itemCardapioRequestDto.setNome("Pizza Margherita");
+        itemCardapioRequestDto.setDescricao("Pizza tradicional com molho de tomate, mussarela e manjericão.");
+        itemCardapioRequestDto.setFoto("/imagens/cardapio/pizza-margherita.jpg");
+        itemCardapioRequestDto.setDisponibilidadeConsumoLocal(true);
+        itemCardapioRequestDto.setPreco(39.90);
+        return itemCardapioRequestDto;
+    }
+
 }
+

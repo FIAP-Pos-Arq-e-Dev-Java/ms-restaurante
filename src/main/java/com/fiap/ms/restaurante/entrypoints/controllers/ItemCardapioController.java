@@ -10,7 +10,6 @@ import com.fiap.ms.restauranteDomain.ItemCardapioApi;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioDto;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,8 +42,8 @@ public class ItemCardapioController implements ItemCardapioApi{
     @Override
     public ResponseEntity<Void> _atualizarItemCardapio(UUID id, ItemCardapioRequestDto itemCardapioRequestDto) {
         var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
-        atualizaUseCase.atualiza(id, domain);
-        return ResponseEntity.status(201).build();
+        atualizaUseCase.atualizar(id, domain);
+        return ResponseEntity.noContent().build();
     }
 
     @Override
@@ -64,7 +63,7 @@ public class ItemCardapioController implements ItemCardapioApi{
     }
 
     @Override
-    public ResponseEntity<ItemCardapioDto> _inserirItemCardapio(ItemCardapioRequestDto itemCardapioRequestDto) {
+    public ResponseEntity<Void> _inserirItemCardapio(ItemCardapioRequestDto itemCardapioRequestDto) {
         var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
         inserirUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();

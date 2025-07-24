@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface AtualizaItemCardapioUseCase {
 
-    void atualiza(UUID id, ItemCardapioDomain itemCardapioDomain);
+    void atualizar(UUID id, ItemCardapioDomain itemCardapioDomain);
 }

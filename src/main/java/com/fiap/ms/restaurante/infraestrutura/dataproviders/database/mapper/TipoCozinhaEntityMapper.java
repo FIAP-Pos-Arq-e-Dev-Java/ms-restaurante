@@ -6,8 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface TipoCozinhaEntityMapper {
 
@@ -16,7 +14,5 @@ public interface TipoCozinhaEntityMapper {
     TipoCozinhaEntity toTipoCozinhaEntity(TipoCozinhaDomain domain);
 
     TipoCozinhaDomain toTipoCozinhaDomain(TipoCozinhaEntity entity);
-
-    List<TipoCozinhaDomain> toListTipoCozinhaDomain(List<TipoCozinhaEntity> entities);
 
 }

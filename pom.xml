@@ -192,7 +192,8 @@
 				</executions>
 				<configuration>
 					<excludes>
-						<exclude>**/gen/model/**</exclude>
+						<exclude>**/restauranteDomain/**</exclude>
+						<exclude>**/MsRestauranteApplication.class/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
