@@ -11,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
 import static com.fiap.ms.restaurante.mocks.TipoCozinhaMock.getTipoCozinhaDomain;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -23,7 +21,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class DeletarTipoCozinhaUseCaseImplTest {
 
-    private final UUID CODIGO = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+    private final Long CODIGO = 1L;
 
     @InjectMocks
     private DeletarTipoCozinhaUseCaseImpl deletarTipoCozinhaUseCase;

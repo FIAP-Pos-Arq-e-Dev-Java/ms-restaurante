@@ -31,7 +31,7 @@ public class TipoCozinhaImpl implements TipoCozinha {
     }
 
     @Override
-    public Optional<TipoCozinhaDomain> buscarPorCodigo(UUID codigo) {
+    public Optional<TipoCozinhaDomain> buscarPorCodigo(Long codigo) {
         var entity = repository.findByCodigo(codigo);
         return entity.map(TipoCozinhaEntityMapper.INSTANCE::toTipoCozinhaDomain);
     }
@@ -43,7 +43,7 @@ public class TipoCozinhaImpl implements TipoCozinha {
     }
 
     @Override
-    public List<TipoCozinhaDomain> buscar(UUID codigo, String descricao) {
+    public List<TipoCozinhaDomain> buscar(Long codigo, String descricao) {
         var spec = TipoCozinhaSpecification.filtrar(codigo, descricao);
         return repository.findAll(spec)
                 .stream()

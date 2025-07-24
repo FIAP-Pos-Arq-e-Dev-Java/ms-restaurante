@@ -4,7 +4,6 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface TipoCozinha {
 
@@ -12,9 +11,9 @@ public interface TipoCozinha {
 
     void salvar(TipoCozinhaDomain tipoCozinhaDomain);
 
-    Optional<TipoCozinhaDomain> buscarPorCodigo(UUID codigo);
+    Optional<TipoCozinhaDomain> buscarPorCodigo(Long codigo);
 
     Optional<TipoCozinhaDomain> buscarPorDescricao(String descricao);
 
-    List<TipoCozinhaDomain> buscar(UUID codigo, String descricao);
+    List<TipoCozinhaDomain> buscar(Long codigo, String descricao);
 }
