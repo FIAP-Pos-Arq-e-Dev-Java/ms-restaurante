@@ -25,9 +25,16 @@ public class RestauranteEntity {
 
     private String endereco;
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "tipo_cozinha_id")
+    private String tipoCozinha;
+
     private String horarioFuncionamento;
 
-//    private Usuario usuario
+    @Column(name = "usuario_id", nullable = false, columnDefinition = "BINARY(16)")
+    private UUID usuario;
+
+//    GETTERS/SETTERS
 
     public UUID getId() {
         return id;
@@ -53,11 +60,27 @@ public class RestauranteEntity {
         this.endereco = endereco;
     }
 
+    public String getTipoCozinha() {
+        return tipoCozinha;
+    }
+
+    public void setTipoCozinha(String tipoCozinha) {
+        this.tipoCozinha = tipoCozinha;
+    }
+
     public String getHorarioFuncionamento() {
         return horarioFuncionamento;
     }
 
     public void setHorarioFuncionamento(String horarioFuncionamento) {
         this.horarioFuncionamento = horarioFuncionamento;
+    }
+
+    public UUID getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UUID usuario) {
+        this.usuario = usuario;
     }
 }

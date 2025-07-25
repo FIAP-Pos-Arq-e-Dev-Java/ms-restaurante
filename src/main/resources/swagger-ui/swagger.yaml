@@ -110,18 +110,39 @@ paths:
     get:
       tags:
         - Restaurante
-      summary: Listar todos os restaurantes
-      description: Retorna uma lista de todos os restaurantes cadastrados.
-      operationId: listarRestaurantes
+      summary: Buscar restaurantes por filtros
+      description: Retorna uma lista de restaurantes de acordo com os filtros opcionais de nome, endereço e horário de funcionamento.
+      operationId: buscarRestaurante
+      parameters:
+        - name: nome
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 'José'
+        - name: endereco
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 'Rua Central, 123'
+        - name: horarioFuncionamento
+          in: query
+          required: false
+          schema:
+            type: string
+          example: '08:00 - 18:00'
       responses:
         '200':
-          description: Lista de restaurantes retornada com sucesso
+          description: Lista de restaurantes encontrados
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Restaurante'
+        '204':
+          description: Nenhum restaurante encontrado
         '500':
           description: Erro interno do servidor
           content:
@@ -134,7 +155,7 @@ paths:
         - Restaurante
       summary: Criar novo restaurante
       description: Cria um novo restaurante com os dados fornecidos, incluindo o dono (usuário responsável).
-      operationId: criarRestaurante
+      operationId: inserirRestaurante
       requestBody:
         required: true
         content:
@@ -152,41 +173,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
           description: Restaurante ou usuário dono já existe
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /restaurantes/{usuario}:
-    get:
-      tags:
-        - Restaurante
-      summary: Buscar restaurante pelo nome do usuário (dono)
-      description: Retorna um restaurante pelo nome de usuário do dono.
-      operationId: buscarRestaurantePorUsuario
-      parameters:
-        - name: usuario
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
-      responses:
-        '200':
-          description: Restaurante encontrado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Restaurante'
-        '404':
-          description: Restaurante não encontrado
           content:
             application/json:
               schema:
@@ -431,6 +417,10 @@ components:
     Usuario:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+          example: "123e4567-e89b-12d3-a456-426614174000"
         nome:
           type: string
           example: "João da Silva"
@@ -444,15 +434,12 @@ components:
         telefone:
           type: string
           example: "+55 11 91234-5678"
-        usuario:
-          type: string
-          example: "joaosilva123"
       required:
+        - id
         - nome
         - email
         - endereco
         - telefone
-        - usuario
 
     Restaurante:
       type: object
@@ -469,14 +456,14 @@ components:
         horarioFuncionamento:
           type: string
           example: "10:00 - 22:00"
-        dono:
+        usuario:
           $ref: '#/components/schemas/Usuario'
       required:
         - nome
         - endereco
         - tipoCozinha
         - horarioFuncionamento
-        - dono
+        - usuario
 
     RestauranteRequest:
       type: object
@@ -493,14 +480,14 @@ components:
         horarioFuncionamento:
           type: string
           example: "10:00 - 22:00"
-        dono:
+        usuario:
           $ref: '#/components/schemas/Usuario'
       required:
         - nome
         - endereco
         - tipoCozinha
         - horarioFuncionamento
-        - dono
+        - usuario
 
     TipoCozinha:
       type: object

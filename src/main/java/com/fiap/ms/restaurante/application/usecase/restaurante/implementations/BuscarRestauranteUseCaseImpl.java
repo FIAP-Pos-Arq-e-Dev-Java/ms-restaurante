@@ -3,7 +3,6 @@ package com.fiap.ms.restaurante.application.usecase.restaurante.implementations;
 import com.fiap.ms.restaurante.application.gateways.Restaurante;
 import com.fiap.ms.restaurante.application.usecase.restaurante.BuscarRestauranteUseCase;
 import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
