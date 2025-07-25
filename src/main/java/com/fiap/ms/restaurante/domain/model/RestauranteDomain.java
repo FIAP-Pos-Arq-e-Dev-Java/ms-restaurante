@@ -7,11 +7,9 @@ public class RestauranteDomain {
     private UUID id;
     private String nome;
     private String endereco;
+    private String tipoCozinha;
     private String horarioFuncionamento;
-
-    //Mudar para um atributo para armazenar o microservice de usuario
-//    private UsuarioDomain usuario;
-
+    private UUID usuario;
 
     public UUID getId() {
         return id;
@@ -37,11 +35,27 @@ public class RestauranteDomain {
         this.endereco = endereco;
     }
 
+    public String getTipoCozinha() {
+        return tipoCozinha;
+    }
+
+    public void setTipoCozinha(String tipoCozinha) {
+        this.tipoCozinha = tipoCozinha;
+    }
+
     public String getHorarioFuncionamento() {
         return horarioFuncionamento;
     }
 
     public void setHorarioFuncionamento(String horarioFuncionamento) {
         this.horarioFuncionamento = horarioFuncionamento;
+    }
+
+    public UUID getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UUID usuario) {
+        this.usuario = usuario;
     }
 }
