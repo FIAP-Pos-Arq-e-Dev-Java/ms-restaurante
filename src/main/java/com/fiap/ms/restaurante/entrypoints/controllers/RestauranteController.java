@@ -50,7 +50,7 @@ public class RestauranteController implements RestauranteApi{
     public ResponseEntity<List<RestauranteDto>> _buscarRestaurante(String nome, String endereco, String horarioFuncionamento) {
         List<RestauranteDomain> domain = buscarRestauranteUseCase.buscar(nome, endereco, horarioFuncionamento);
         List<RestauranteDto> dtos = domain.stream().map(RestauranteDtoMapper.INSTANCE::toRestauranteDto).collect(Collectors.toList());
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(dtos);
     }
 
     @Override
