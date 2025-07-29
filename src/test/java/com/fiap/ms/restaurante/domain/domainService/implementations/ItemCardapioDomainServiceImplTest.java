@@ -50,24 +50,24 @@ public class ItemCardapioDomainServiceImplTest {
 
     @Test
     void buscarTipoCozinhaPorCodigo_codigoExistente_ObjetoNaoExisteException() {
-        UUID uuid = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
-        when(itemCardapio.buscarPorId(any(UUID.class))).thenReturn(Optional.empty());
+        Long id = 1L;
+        when(itemCardapio.buscarPorId(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThrows(ObjetoNaoExisteException.class, () -> itemCardapioDomainService.buscarItemCardapioPorId(uuid));
+        assertThrows(ObjetoNaoExisteException.class, () -> itemCardapioDomainService.buscarItemCardapioPorId(id));
 
-        verify(itemCardapio).buscarPorId(any(UUID.class));
+        verify(itemCardapio).buscarPorId(any(Long.class));
     }
 
     @Test
     void buscarTipoCozinhaPorCodigo_codigoNaoExistente_sucesso() {
-        UUID uuid = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+       Long id = 1L;
         ItemCardapioDomain itemCardapioDomain = getItemCardapioDomainCompleto();
 
-        when(itemCardapio.buscarPorId(any(UUID.class))).thenReturn(Optional.of(itemCardapioDomain));
+        when(itemCardapio.buscarPorId(any(Long.class))).thenReturn(Optional.of(itemCardapioDomain));
 
-        itemCardapioDomainService.buscarItemCardapioPorId(uuid);
+        itemCardapioDomainService.buscarItemCardapioPorId(id);
 
-        verify(itemCardapio).buscarPorId(any(UUID.class));
+        verify(itemCardapio).buscarPorId(any(Long.class));
     }
 
 }

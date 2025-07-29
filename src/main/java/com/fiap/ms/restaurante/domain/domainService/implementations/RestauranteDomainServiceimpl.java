@@ -7,8 +7,6 @@ import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @AllArgsConstructor
 @Service
 public class RestauranteDomainServiceimpl implements RestauranteDomainService {
@@ -16,7 +14,7 @@ public class RestauranteDomainServiceimpl implements RestauranteDomainService {
     private final Restaurante restaurante;
 
     @Override
-    public RestauranteDomain buscaRestaurantePorId(UUID id) {
+    public RestauranteDomain buscaRestaurantePorId(Long id) {
         return restaurante.buscarPorId(id)
                 .orElseThrow(() -> new ObjetoNaoExisteException("Restaurante não cadastrado."));
     }

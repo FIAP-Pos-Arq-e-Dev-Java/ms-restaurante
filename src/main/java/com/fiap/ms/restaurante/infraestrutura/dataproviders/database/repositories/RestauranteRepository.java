@@ -4,8 +4,6 @@ import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.Re
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.UUID;
-
-public interface RestauranteRepository extends JpaRepository<RestauranteEntity, UUID>, JpaSpecificationExecutor<RestauranteEntity> {
+public interface RestauranteRepository extends JpaRepository<RestauranteEntity, Long>, JpaSpecificationExecutor<RestauranteEntity> {
 
 }

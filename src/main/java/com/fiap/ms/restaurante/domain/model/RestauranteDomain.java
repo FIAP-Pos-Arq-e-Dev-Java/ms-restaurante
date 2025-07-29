@@ -1,21 +1,19 @@
 package com.fiap.ms.restaurante.domain.model;
 
-import java.util.UUID;
-
 public class RestauranteDomain {
 
-    private UUID id;
+    private Long id;
     private String nome;
     private String endereco;
     private String tipoCozinha;
     private String horarioFuncionamento;
-    private UUID usuario;
+    private Long usuario;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -51,11 +49,11 @@ public class RestauranteDomain {
         this.horarioFuncionamento = horarioFuncionamento;
     }
 
-    public UUID getUsuario() {
+    public Long getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(UUID usuario) {
+    public void setUsuario(Long usuario) {
         this.usuario = usuario;
     }
 }

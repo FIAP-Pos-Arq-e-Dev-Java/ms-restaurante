@@ -66,9 +66,9 @@ paths:
           name: id
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
+          example: 1
       requestBody:
         required: true
         content:
@@ -91,9 +91,9 @@ paths:
           name: id
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
+          example: 1
       responses:
         '204':
           description: Removido com sucesso
@@ -192,9 +192,9 @@ paths:
           in: path
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
+          example: 1
       requestBody:
         required: true
         content:
@@ -238,9 +238,9 @@ paths:
           in: path
           required: true
           schema:
-            type: string
-            format: uuid
-          example: '550e8400-e29b-41d4-a716-446655440000'
+            type: integer
+            format: int64
+          example: 1
       responses:
         '204':
           description: Restaurante removido com sucesso
@@ -411,9 +411,9 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
-          example: "123e4567-e89b-12d3-a456-426614174000"
+          type: integer
+          format: int64
+          example: 1
         nome:
           type: string
           example: "João da Silva"

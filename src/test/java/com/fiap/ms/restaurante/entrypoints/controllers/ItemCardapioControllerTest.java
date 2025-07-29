@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.UUID;
 
 import static com.fiap.ms.restaurante.mocks.ItemCardapioMock.getItemCardapioRequestDto;
 import static com.fiap.ms.restaurante.mocks.ItemCardapioMock.getItensCardapioDomain;
@@ -48,15 +47,15 @@ public class ItemCardapioControllerTest {
 
     @Test
     void _atualizarItemCardapio_sucesso() {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         ItemCardapioRequestDto itemCardapioRequestDto = getItemCardapioRequestDto();
 
-        doNothing().when(atualizaItemCardapioUseCase).atualizar(any(UUID.class), any());
+        doNothing().when(atualizaItemCardapioUseCase).atualizar(any(Long.class), any());
 
         ResponseEntity<Void> response = controller._atualizarItemCardapio(id, itemCardapioRequestDto);
 
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
-        verify(atualizaItemCardapioUseCase, times(1)).atualizar(any(UUID.class), any());
+        verify(atualizaItemCardapioUseCase, times(1)).atualizar(any(Long.class), any());
     }
 
     @Test
@@ -89,7 +88,7 @@ public class ItemCardapioControllerTest {
 
     @Test
     void _deletarItemCardapio_sucesso() {
-        UUID id = UUID.randomUUID();
+        Long id = 1L;
         doNothing().when(deletaItemCardapioUseCase).deletar(id);
 
         ResponseEntity<Void> response = controller._deletarItemCardapio(id);

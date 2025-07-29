@@ -7,8 +7,6 @@ import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @Service
 public class DeletaItemCardapioUseCaseImpl implements DeletaItemCardapioUseCase {
@@ -17,7 +15,7 @@ public class DeletaItemCardapioUseCaseImpl implements DeletaItemCardapioUseCase 
     private final ItemCardapioDomainService itemCardapioDomainService;
 
     @Override
-    public void deletar(UUID id) {
+    public void deletar(Long id) {
         ItemCardapioDomain domain = itemCardapioDomainService.buscarItemCardapioPorId(id);
         itemCardapio.deletar(domain);
     }

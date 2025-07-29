@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,7 +39,7 @@ public class ItemCardapioController implements ItemCardapioApi{
     }
 
     @Override
-    public ResponseEntity<Void> _atualizarItemCardapio(UUID id, ItemCardapioRequestDto itemCardapioRequestDto) {
+    public ResponseEntity<Void> _atualizarItemCardapio(Long id, ItemCardapioRequestDto itemCardapioRequestDto) {
         var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
         atualizaUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();
@@ -57,7 +56,7 @@ public class ItemCardapioController implements ItemCardapioApi{
     }
 
     @Override
-    public ResponseEntity<Void> _deletarItemCardapio(UUID id) {
+    public ResponseEntity<Void> _deletarItemCardapio(Long id) {
         deletaUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }
