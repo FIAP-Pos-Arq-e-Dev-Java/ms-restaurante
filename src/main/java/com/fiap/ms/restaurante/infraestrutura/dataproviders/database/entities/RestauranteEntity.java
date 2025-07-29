@@ -30,7 +30,7 @@ public class RestauranteEntity {
 
     private String horarioFuncionamento;
 
-    @Column(name = "usuario_id", nullable = false, columnDefinition = "BINARY(16)")
+    @Column(name = "usuario_id")
     private Long usuario;
 
 
