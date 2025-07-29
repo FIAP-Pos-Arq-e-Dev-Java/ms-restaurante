@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -32,7 +31,7 @@ public class RestauranteImpl implements Restaurante {
     }
 
     @Override
-    public Optional<RestauranteDomain> buscarPorId(UUID id) {
+    public Optional<RestauranteDomain> buscarPorId(Long id) {
         var entity = repository.findById(id);
         return entity.map(RestauranteEntityMapper.INSTANCE::toRestauranteDomain);
     }

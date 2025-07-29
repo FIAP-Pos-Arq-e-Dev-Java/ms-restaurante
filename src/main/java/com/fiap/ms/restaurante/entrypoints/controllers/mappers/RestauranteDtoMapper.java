@@ -9,8 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-import java.util.UUID;
-
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface RestauranteDtoMapper {
 
@@ -22,7 +20,7 @@ public interface RestauranteDtoMapper {
     RestauranteDto toRestauranteDto(RestauranteDomain restauranteDomain);
 
     // Método para converter UsuarioDto para UUID
-    default UUID map(UsuarioDto usuarioDto) {
+    default Long map(UsuarioDto usuarioDto) {
         if (usuarioDto == null) {
             return null;
         }
@@ -30,7 +28,7 @@ public interface RestauranteDtoMapper {
     }
 
     // Método para converter UUID para UsuarioDto
-    default UsuarioDto map(UUID usuarioId) {
+    default UsuarioDto map(Long usuarioId) {
         if (usuarioId == null) {
             return null;
         }

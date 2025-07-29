@@ -11,8 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.UUID;
-
 import static com.fiap.ms.restaurante.mocks.ItemCardapioMock.getItemCardapioDomainCompleto;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.Mockito.doNothing;
@@ -34,26 +32,26 @@ public class DeletaItemCardapioUseCaseImplTest {
 
     @Test
     void deletaItemCardapio_sucesso(){
-        UUID uuid = UUID.fromString("550e8400-e29b-41d4-a716-446655440000");
+        Long id = 1L;
 
         ItemCardapioDomain item = getItemCardapioDomainCompleto();
-        when(itemCardapioDomainService.buscarItemCardapioPorId(uuid)).thenReturn(item);
+        when(itemCardapioDomainService.buscarItemCardapioPorId(id)).thenReturn(item);
         doNothing().when(itemCardapio).deletar(item);
 
-        deletaItemCardapioUseCase.deletar(uuid);
+        deletaItemCardapioUseCase.deletar(id);
 
-        verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(uuid);
+        verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(id);
         verify(itemCardapio, times(1)).deletar(item);
     }
 
     @Test
     void deletaItemCardapio_idInexistente_objetoNaoExisteException() {
-        UUID uuid = UUID.randomUUID();
+        Long id = 1L;
 
-        when(itemCardapioDomainService.buscarItemCardapioPorId(uuid)).thenThrow(ObjetoNaoExisteException.class);
+        when(itemCardapioDomainService.buscarItemCardapioPorId(id)).thenThrow(ObjetoNaoExisteException.class);
 
-        assertThrows(ObjetoNaoExisteException.class, () -> deletaItemCardapioUseCase.deletar(uuid));
+        assertThrows(ObjetoNaoExisteException.class, () -> deletaItemCardapioUseCase.deletar(id));
 
-        verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(uuid);
+        verify(itemCardapioDomainService, times(1)).buscarItemCardapioPorId(id);
     }
 }

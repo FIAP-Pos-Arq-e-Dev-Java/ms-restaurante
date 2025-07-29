@@ -7,8 +7,6 @@ import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @RequiredArgsConstructor
 @Service
 public class AtualizarRestauranteUseCaseImpl implements AtualizarRestauranteUseCase {
@@ -17,7 +15,7 @@ public class AtualizarRestauranteUseCaseImpl implements AtualizarRestauranteUseC
     private final RestauranteDomainService  restauranteDomainService;
 
     @Override
-    public void atualizar(UUID id, RestauranteDomain restauranteDomain) {
+    public void atualizar(Long id, RestauranteDomain restauranteDomain) {
         //Adicionar uma validacao
 
         RestauranteDomain domain = restauranteDomainService.buscaRestaurantePorId(id);

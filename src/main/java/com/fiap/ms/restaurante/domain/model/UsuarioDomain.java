@@ -1,20 +1,18 @@
 package com.fiap.ms.restaurante.domain.model;
 
-import java.util.UUID;
-
 public class UsuarioDomain {
 
-    private UUID id;
+    private Long id;
     private String nome;
     private String email;
     private String endereco;
     private String telefone;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

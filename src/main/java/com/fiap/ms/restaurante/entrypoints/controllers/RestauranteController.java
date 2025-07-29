@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,7 +39,7 @@ public class RestauranteController implements RestauranteApi{
     }
 
     @Override
-    public ResponseEntity<RestauranteDto> _atualizarRestaurante(UUID id, RestauranteRequestDto restauranteRequestDto) {
+    public ResponseEntity<RestauranteDto> _atualizarRestaurante(Long id, RestauranteRequestDto restauranteRequestDto) {
         var domain = RestauranteDtoMapper.INSTANCE.toDomain(restauranteRequestDto);
         atualizarRestauranteUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();
@@ -54,7 +53,7 @@ public class RestauranteController implements RestauranteApi{
     }
 
     @Override
-    public ResponseEntity<Void> _deletarRestaurante(UUID id) {
+    public ResponseEntity<Void> _deletarRestaurante(Long id) {
         deletarRestauranteUseCase.deletar(id);
         return ResponseEntity.noContent().build();
     }

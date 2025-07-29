@@ -16,10 +16,9 @@ import java.util.UUID;
 public class RestauranteEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false, columnDefinition = "BINARY(16)")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
 
     private String nome;
 
@@ -32,15 +31,14 @@ public class RestauranteEntity {
     private String horarioFuncionamento;
 
     @Column(name = "usuario_id", nullable = false, columnDefinition = "BINARY(16)")
-    private UUID usuario;
+    private Long usuario;
 
-//    GETTERS/SETTERS
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,11 +74,11 @@ public class RestauranteEntity {
         this.horarioFuncionamento = horarioFuncionamento;
     }
 
-    public UUID getUsuario() {
+    public Long getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(UUID usuario) {
+    public void setUsuario(Long usuario) {
         this.usuario = usuario;
     }
 }
