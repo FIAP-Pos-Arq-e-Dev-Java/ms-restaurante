@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExtrairUserIdDoTokenRule {
 
-    public Long obterUserId() {
+    public static Long obterUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getPrincipal() == null) {

@@ -9,7 +9,7 @@ import jakarta.persistence.criteria.Predicate;
 
 public class RestauranteSpecification {
 
-    public static Specification<RestauranteEntity> filtrar(String nome, String endereco, String horarioFuncionamento){
+    public static Specification<RestauranteEntity> filtrar(String nome, Long usuarioId, String horarioFuncionamento){
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -17,8 +17,8 @@ public class RestauranteSpecification {
                 predicates.add(cb.like(cb.lower(root.get("nome")), "%" + nome + "%"));
             }
 
-            if(endereco != null){
-                predicates.add(cb.like(cb.lower(root.get("endereco")), "%" + endereco + "%"));
+            if(usuarioId != null){
+                predicates.add(cb.equal(root.get("usuarioId"), usuarioId));
             }
 
             if(horarioFuncionamento != null){

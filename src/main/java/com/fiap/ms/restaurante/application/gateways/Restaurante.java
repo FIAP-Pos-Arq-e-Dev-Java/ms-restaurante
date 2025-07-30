@@ -13,7 +13,7 @@ public interface Restaurante {
 
     Optional<RestauranteDomain> buscarPorId(Long id);
 
-    Boolean findRestaurantByIdUser(Long idUser);
+    Boolean findRestaurantByIdUser(Long usuarioId);
 
-    List<RestauranteDomain> buscar(String nome, String endereco, String horarioFuncionamento);
+    List<RestauranteDomain> buscar(String nome, Long usuarioId, String horarioFuncionamento);
 }

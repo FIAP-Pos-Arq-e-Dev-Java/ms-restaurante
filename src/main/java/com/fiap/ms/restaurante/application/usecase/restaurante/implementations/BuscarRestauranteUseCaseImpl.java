@@ -15,7 +15,7 @@ public class BuscarRestauranteUseCaseImpl implements BuscarRestauranteUseCase {
     private final Restaurante restaurante;
 
     @Override
-    public List<RestauranteDomain> buscar(String nome, String endereco, String horarioFuncionamento) {
-        return restaurante.buscar(nome, endereco, horarioFuncionamento);
+    public List<RestauranteDomain> buscar(String nome, Long usuarioId, String horarioFuncionamento) {
+        return restaurante.buscar(nome, usuarioId, horarioFuncionamento);
     }
 }

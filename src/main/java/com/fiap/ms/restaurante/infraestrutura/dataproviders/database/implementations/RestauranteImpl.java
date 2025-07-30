@@ -37,8 +37,8 @@ public class RestauranteImpl implements Restaurante {
     }
 
     @Override
-    public List<RestauranteDomain> buscar(String nome, String endereco, String horarioFuncionamento) {
-        var spec = RestauranteSpecification.filtrar(nome, endereco, horarioFuncionamento);
+    public List<RestauranteDomain> buscar(String nome, Long usuarioId, String horarioFuncionamento) {
+        var spec = RestauranteSpecification.filtrar(nome, usuarioId, horarioFuncionamento);
         return repository.findAll(spec)
                 .stream()
                 .map(RestauranteEntityMapper.INSTANCE::toRestauranteDomain)
@@ -46,7 +46,7 @@ public class RestauranteImpl implements Restaurante {
     }
 
     @Override
-    public Boolean findRestaurantByIdUser(Long idUser) {
-        return repository.existsByUsuario(idUser);
+    public Boolean findRestaurantByIdUser(Long usuarioId) {
+        return repository.existsByUsuarioId(usuarioId);
     }
 }
