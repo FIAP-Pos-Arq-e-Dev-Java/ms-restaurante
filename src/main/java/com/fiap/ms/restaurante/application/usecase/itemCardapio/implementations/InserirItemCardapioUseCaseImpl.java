@@ -7,7 +7,7 @@ import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validar;
+import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validarDescricaoObrigatoria;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +18,7 @@ public class InserirItemCardapioUseCaseImpl implements InserirItemCardapioUseCas
 
     @Override
     public void inserir(ItemCardapioDomain domain) {
-        validar(domain.getDescricao());
+        validarDescricaoObrigatoria(domain.getDescricao());
 
         itemCardapioDomainService.checarExistenciaDescricao(domain.getDescricao());
 
