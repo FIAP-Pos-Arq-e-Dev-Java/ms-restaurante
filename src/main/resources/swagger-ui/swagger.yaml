@@ -13,6 +13,108 @@ tags:
     description: Dominios de tipos de cozinhas
 
 paths:
+  /enderecos:
+    post:
+      tags:
+        - Endereco
+      summary: Criar um novo endereço
+      operationId: inserirEndereco
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnderecoRequest'
+      responses:
+        '201':
+          description: Endereço criado com sucesso
+        '400':
+          description: Requisição inválida
+        '500':
+          description: Erro interno do servidor
+
+    get:
+      tags:
+        - Endereco
+      summary: Buscar lista de endereços por filtros
+      operationId: buscarEnderecos
+      parameters:
+        - name: cidade
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 'São Paulo'
+        - name: estado
+          in: query
+          required: false
+          schema:
+            type: string
+          example: 'SP'
+      responses:
+        '200':
+          description: Lista de endereços encontrados
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Endereco'
+        '204':
+          description: Nenhum endereço encontrado
+        '500':
+          description: Erro interno do servidor
+
+  /enderecos/{id}:
+    patch:
+      tags:
+        - Endereco
+      summary: Atualizar endereço por ID
+      operationId: atualizarEndereco
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EnderecoRequest'
+      responses:
+        '204':
+          description: Endereço atualizado com sucesso
+        '404':
+          description: Endereço não encontrado
+        '500':
+          description: Erro interno do servidor
+
+    delete:
+      tags:
+        - Endereco
+      summary: Deletar endereço por ID
+      operationId: deletarEndereco
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          example: 1
+      responses:
+        '204':
+          description: Endereço removido com sucesso
+        '404':
+          description: Endereço não encontrado
+        '500':
+          description: Erro interno do servidor
+
+
   # Rotas Itens do Cardápio
   /item-cardapio:
     post:
@@ -180,6 +282,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
+
+  /restaurantes/{id}/exists:
+    get:
+      tags:
+        - Restaurante
+      summary: Verificar se restaurante existe por ID
+      operationId: verificarExistenciaUsuarioRestaurante
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Resultado da verificação de existência
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestauranteUserExistsResponse'
+
+
   /restaurantes/{id}:
     patch:
       tags:
@@ -256,6 +381,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+
+
 
   /tipo-cozinha:
     post:
@@ -352,6 +479,35 @@ components:
     descricao:
       type: string
       example: "Italiana"
+
+
+    EnderecoRequest:
+      type: object
+      properties:
+        street:
+          type: string
+        number:
+          type: string
+        complement:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+      required:
+        - street
+        - number
+        - city
+        - state
+
+    Endereco:
+      allOf:
+        - $ref: '#/components/schemas/EnderecoRequest'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
 
     ItemCardapio:
       type: object
@@ -481,6 +637,14 @@ components:
         - tipoCozinha
         - horarioFuncionamento
         - usuario
+
+
+    RestauranteUserExistsResponse:
+      type: object
+      properties:
+        exists:
+          type: boolean
+          example: true
 
     TipoCozinha:
       type: object

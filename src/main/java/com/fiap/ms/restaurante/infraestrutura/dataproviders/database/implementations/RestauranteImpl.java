@@ -44,4 +44,9 @@ public class RestauranteImpl implements Restaurante {
                 .map(RestauranteEntityMapper.INSTANCE::toRestauranteDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Boolean findRestaurantByIdUser(Long idUser) {
+        return repository.existsByUsuario(idUser);
+    }
 }

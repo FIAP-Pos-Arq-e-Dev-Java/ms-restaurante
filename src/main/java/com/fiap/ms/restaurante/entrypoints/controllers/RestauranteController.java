@@ -1,14 +1,12 @@
 package com.fiap.ms.restaurante.entrypoints.controllers;
 
-import com.fiap.ms.restaurante.application.usecase.restaurante.AtualizarRestauranteUseCase;
-import com.fiap.ms.restaurante.application.usecase.restaurante.BuscarRestauranteUseCase;
-import com.fiap.ms.restaurante.application.usecase.restaurante.DeletarRestauranteUseCase;
-import com.fiap.ms.restaurante.application.usecase.restaurante.InserirRestauranteUseCase;
+import com.fiap.ms.restaurante.application.usecase.restaurante.*;
 import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 import com.fiap.ms.restaurante.entrypoints.controllers.mappers.RestauranteDtoMapper;
 import com.fiap.ms.restauranteDomain.RestauranteApi;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteDto;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteRequestDto;
+import com.fiap.ms.restauranteDomain.gen.model.RestauranteUserExistsResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +25,18 @@ public class RestauranteController implements RestauranteApi{
     private final BuscarRestauranteUseCase buscarRestauranteUseCase;
     private final DeletarRestauranteUseCase deletarRestauranteUseCase;
     private final AtualizarRestauranteUseCase atualizarRestauranteUseCase;
+    private final BuscaRestauranteUsuarioIdUseCase buscaRestauranteUsuarioIdUseCase;
 
     public RestauranteController(InserirRestauranteUseCase inserirRestauranteUseCase,
                                  BuscarRestauranteUseCase buscarRestauranteUseCase,
                                  DeletarRestauranteUseCase deletarRestauranteUseCase,
-                                 AtualizarRestauranteUseCase atualizarRestauranteUseCase) {
+                                 AtualizarRestauranteUseCase atualizarRestauranteUseCase,
+                                 BuscaRestauranteUsuarioIdUseCase buscaRestauranteUsuarioIdUseCase) {
         this.inserirRestauranteUseCase = inserirRestauranteUseCase;
         this.buscarRestauranteUseCase = buscarRestauranteUseCase;
         this.deletarRestauranteUseCase = deletarRestauranteUseCase;
         this.atualizarRestauranteUseCase = atualizarRestauranteUseCase;
+        this.buscaRestauranteUsuarioIdUseCase = buscaRestauranteUsuarioIdUseCase;
     }
 
     @Override
@@ -63,5 +64,11 @@ public class RestauranteController implements RestauranteApi{
         var domain = RestauranteDtoMapper.INSTANCE.toDomain(restauranteRequestDto);
         inserirRestauranteUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @Override
+    public ResponseEntity<RestauranteUserExistsResponseDto> _verificarExistenciaUsuarioRestaurante(Long id) {
+        boolean exists = buscaRestauranteUsuarioIdUseCase.findRestaurantByIdUser(id);
+        return ResponseEntity.ok(new RestauranteUserExistsResponseDto().exists(exists));
     }
 }
