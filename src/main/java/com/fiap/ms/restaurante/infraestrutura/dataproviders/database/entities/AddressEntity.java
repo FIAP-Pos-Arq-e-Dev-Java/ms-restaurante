@@ -1,12 +1,30 @@
 package com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "tb_address")
 public class AddressEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+
     private String street;
+
     private String number;
+
     private String complement;
+
     private String city;
+
     private String state;
 
     public Long getId() {

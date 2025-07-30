@@ -1,19 +1,17 @@
 package com.fiap.ms.restaurante.application.gateways;
 
-import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
+import com.fiap.ms.restaurante.domain.model.AddressDomain;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface Address {
 
-    void save(ItemCardapioDomain item);
+    void save(AddressDomain addres);
 
-    Optional<ItemCardapioDomain> findById(Long id);
+    Optional<AddressDomain> findById(Long id);
 
-    List<ItemCardapioDomain> findAll(String nome, Boolean disponibilidadeConsumoLocal);
+    List<AddressDomain> findAll(String cidade, String estado);
 
-    void delete(ItemCardapioDomain item);
-
-    Optional<ItemCardapioDomain> findByDescription(String descricao);
+    void delete(AddressDomain item);
 }
