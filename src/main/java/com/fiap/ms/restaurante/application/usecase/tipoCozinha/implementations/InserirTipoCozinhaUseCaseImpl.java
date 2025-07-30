@@ -7,7 +7,7 @@ import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validar;
+import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validarDescricaoObrigatoria;
 
 @RequiredArgsConstructor
 @Service
@@ -18,7 +18,7 @@ public class InserirTipoCozinhaUseCaseImpl implements InserirTipoCozinhaUseCase 
 
     @Override
     public void inserir(TipoCozinhaDomain tipoCozinhaDomain) {
-        validar(tipoCozinhaDomain.getDescricao());
+        validarDescricaoObrigatoria(tipoCozinhaDomain.getDescricao());
 
         tipoCozinhaDomainService.checarExistenciaCodigo(tipoCozinhaDomain.getCodigo());
         tipoCozinhaDomainService.checarExistenciaDescricao(tipoCozinhaDomain.getDescricao());
