@@ -2,5 +2,5 @@ package com.fiap.ms.restaurante.application.usecase.restaurante;
 
 public interface BuscaRestauranteUsuarioIdUseCase {
 
-    Boolean findRestaurantByIdUser(Long idUser);
+    Boolean findRestaurantByIdUser(Long usuarioId);
 }

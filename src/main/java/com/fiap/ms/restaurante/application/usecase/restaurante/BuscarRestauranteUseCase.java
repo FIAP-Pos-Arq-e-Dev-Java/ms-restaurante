@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface BuscarRestauranteUseCase {
 
-    List<RestauranteDomain> buscar(String nome, String endereco, String horarioFuncionamento);
+    List<RestauranteDomain> buscar(String nome, Long usuarioId, String horarioFuncionamento);
 }

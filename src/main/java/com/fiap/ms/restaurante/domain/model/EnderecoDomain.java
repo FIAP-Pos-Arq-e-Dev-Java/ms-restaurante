@@ -1,21 +1,12 @@
 package com.fiap.ms.restaurante.domain.model;
 
-public class AddressDomain {
+public class EnderecoDomain {
 
-    private Long id;
     private String street;
     private String number;
     private String complement;
     private String city;
     private String state;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getStreet() {
         return street;

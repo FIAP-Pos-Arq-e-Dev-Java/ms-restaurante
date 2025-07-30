@@ -4,10 +4,22 @@ public class RestauranteDomain {
 
     private Long id;
     private String nome;
-    private String endereco;
+    private EnderecoDomain endereco;
     private String tipoCozinha;
     private String horarioFuncionamento;
-    private Long usuario;
+    private Long usuarioId;
+
+    public RestauranteDomain(){
+    }
+
+    public RestauranteDomain(Long id, String nome, EnderecoDomain endereco, String tipoCozinha, String horarioFuncionamento, Long usuarioId) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+        this.tipoCozinha = tipoCozinha;
+        this.horarioFuncionamento = horarioFuncionamento;
+        this.usuarioId = usuarioId;
+    }
 
     public Long getId() {
         return id;
@@ -25,11 +37,11 @@ public class RestauranteDomain {
         this.nome = nome;
     }
 
-    public String getEndereco() {
+    public EnderecoDomain getEndereco() {
         return endereco;
     }
 
-    public void setEndereco(String endereco) {
+    public void setEndereco(EnderecoDomain endereco) {
         this.endereco = endereco;
     }
 
@@ -49,11 +61,11 @@ public class RestauranteDomain {
         this.horarioFuncionamento = horarioFuncionamento;
     }
 
-    public Long getUsuario() {
-        return usuario;
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario(Long usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

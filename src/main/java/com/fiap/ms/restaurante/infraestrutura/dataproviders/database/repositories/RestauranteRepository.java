@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface RestauranteRepository extends JpaRepository<RestauranteEntity, Long>, JpaSpecificationExecutor<RestauranteEntity> {
 
-    Boolean existsByUsuario(Long usuarioId);
+    Boolean existsByUsuarioId(Long usuarioId);
 }

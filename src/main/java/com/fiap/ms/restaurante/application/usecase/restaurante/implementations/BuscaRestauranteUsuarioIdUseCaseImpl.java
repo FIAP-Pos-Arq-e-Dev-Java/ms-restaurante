@@ -12,7 +12,7 @@ public class BuscaRestauranteUsuarioIdUseCaseImpl implements BuscaRestauranteUsu
     private final Restaurante restaurante;
 
     @Override
-    public Boolean findRestaurantByIdUser(Long idUser) {
-        return restaurante.findRestaurantByIdUser(idUser);
+    public Boolean findRestaurantByIdUser(Long usuarioId) {
+        return restaurante.findRestaurantByIdUser(usuarioId);
     }
 }

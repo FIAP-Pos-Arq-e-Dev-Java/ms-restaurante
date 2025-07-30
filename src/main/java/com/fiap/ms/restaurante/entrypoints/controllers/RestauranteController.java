@@ -41,17 +41,18 @@ public class RestauranteController implements RestauranteApi{
 
     @Override
     public ResponseEntity<RestauranteDto> _atualizarRestaurante(Long id, RestauranteRequestDto restauranteRequestDto) {
-        var domain = RestauranteDtoMapper.INSTANCE.toDomain(restauranteRequestDto);
+        var domain = RestauranteDtoMapper.INSTANCE.toRestauranteDomain(restauranteRequestDto);
         atualizarRestauranteUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();
     }
 
     @Override
-    public ResponseEntity<List<RestauranteDto>> _buscarRestaurante(String nome, String endereco, String horarioFuncionamento) {
-        List<RestauranteDomain> domain = buscarRestauranteUseCase.buscar(nome, endereco, horarioFuncionamento);
+    public ResponseEntity<List<RestauranteDto>> _buscarRestaurante(String nome, Long usuarioId, String horarioFuncionamento) {
+        List<RestauranteDomain> domain = buscarRestauranteUseCase.buscar(nome, usuarioId, horarioFuncionamento);
         List<RestauranteDto> dtos = domain.stream().map(RestauranteDtoMapper.INSTANCE::toRestauranteDto).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
+
 
     @Override
     public ResponseEntity<Void> _deletarRestaurante(Long id) {
@@ -61,14 +62,14 @@ public class RestauranteController implements RestauranteApi{
 
     @Override
     public ResponseEntity<Void> _inserirRestaurante(RestauranteRequestDto restauranteRequestDto) {
-        var domain = RestauranteDtoMapper.INSTANCE.toDomain(restauranteRequestDto);
+        var domain = RestauranteDtoMapper.INSTANCE.toRestauranteDomain(restauranteRequestDto);
         inserirRestauranteUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override
-    public ResponseEntity<RestauranteUserExistsResponseDto> _verificarExistenciaUsuarioRestaurante(Long id) {
-        boolean exists = buscaRestauranteUsuarioIdUseCase.findRestaurantByIdUser(id);
+    public ResponseEntity<RestauranteUserExistsResponseDto> _verificarExistenciaUsuarioRestaurante(Long usuarioId) {
+        boolean exists = buscaRestauranteUsuarioIdUseCase.findRestaurantByIdUser(usuarioId);
         return ResponseEntity.ok(new RestauranteUserExistsResponseDto().exists(exists));
     }
 }
