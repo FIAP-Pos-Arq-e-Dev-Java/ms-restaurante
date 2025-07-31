@@ -16,13 +16,12 @@ public class AtualizarRestauranteUseCaseImpl implements AtualizarRestauranteUseC
 
     @Override
     public void atualizar(Long id, RestauranteDomain restauranteDomain) {
-        //Adicionar uma validacao
-
         RestauranteDomain domain = restauranteDomainService.buscaRestaurantePorId(id);
 
         domain.setNome(restauranteDomain.getNome());
         domain.setEndereco(restauranteDomain.getEndereco());
         domain.setHorarioFuncionamento(restauranteDomain.getHorarioFuncionamento());
+        domain.setTipoCozinha(restauranteDomain.getTipoCozinha());
         restaurante.salvar(domain);
     }
 }

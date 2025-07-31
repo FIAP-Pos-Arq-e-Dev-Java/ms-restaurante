@@ -29,4 +29,7 @@ public class ItemCardapioEntity {
     private Boolean disponibilidadeConsumoLocal;
 
     private String foto;
+
+    //TODO ADICIONAR ID DO RESTAURANTE
+    //FAZER RELACIONAMENTO
 }

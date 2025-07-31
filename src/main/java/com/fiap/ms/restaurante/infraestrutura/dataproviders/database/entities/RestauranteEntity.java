@@ -10,6 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,10 +30,17 @@ public class RestauranteEntity {
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "tipo_cozinha_id")
+    //TODO MUDAR PARA LONG E FAZER O RELACIONAMENTO
+    //private TipoCozinhaEntity tipoCozinha;
     private String tipoCozinha;
 
     private String horarioFuncionamento;
 
 //    @Column(name = "usuario_id")
     private Long usuarioId;
+
+    //TODO MUDAR ATE O SWAGGER E VOLTAR UM LIST
+    // CRIAR DOMAIN E DTO
+    // SE NECESSARIO AJUSTAR OS MAPPERS
+    //private List<ItemCardapioEntity> itemCardapios;
 }

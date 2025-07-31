@@ -40,7 +40,8 @@ public class RestauranteController implements RestauranteApi{
     }
 
     @Override
-    public ResponseEntity<RestauranteDto> _atualizarRestaurante(Long id, RestauranteRequestDto restauranteRequestDto) {
+    public ResponseEntity<Void> _atualizarRestaurante(Long id, RestauranteRequestDto restauranteRequestDto) {
+        //TODO RestauranteRequestDto.tipoCozinha (String virar um Long)
         var domain = RestauranteDtoMapper.INSTANCE.toRestauranteDomain(restauranteRequestDto);
         atualizarRestauranteUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();
@@ -69,7 +70,7 @@ public class RestauranteController implements RestauranteApi{
 
     @Override
     public ResponseEntity<RestauranteUserExistsResponseDto> _verificarExistenciaUsuarioRestaurante(Long usuarioId) {
-        boolean exists = buscaRestauranteUsuarioIdUseCase.findRestaurantByIdUser(usuarioId);
+        boolean exists = buscaRestauranteUsuarioIdUseCase.buscarUsuarioPorId(usuarioId);
         return ResponseEntity.ok(new RestauranteUserExistsResponseDto().exists(exists));
     }
 }

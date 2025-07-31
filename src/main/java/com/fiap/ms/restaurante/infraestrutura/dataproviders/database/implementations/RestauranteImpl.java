@@ -46,7 +46,7 @@ public class RestauranteImpl implements Restaurante {
     }
 
     @Override
-    public Boolean findRestaurantByIdUser(Long usuarioId) {
+    public Boolean buscarUsuarioPorId(Long usuarioId) {
         return repository.existsByUsuarioId(usuarioId);
     }
 }
