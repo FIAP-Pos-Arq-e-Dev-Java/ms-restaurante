@@ -219,10 +219,6 @@ paths:
       responses:
         '200':
           description: Restaurante atualizado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Restaurante'
         '400':
           description: Requisição inválida
           content:
@@ -389,7 +385,7 @@ components:
 
     Preco:
       type: number
-      format: float
+      format: double
       example: 39.90
 
     Foto:
@@ -448,21 +444,15 @@ components:
         - foto
       properties:
         nome:
-          type: string
-          example: "Pizza Margherita"
+          $ref: '#/components/schemas/Nome'
         descricao:
-          type: string
-          example: "Pizza tradicional com molho de tomate, mussarela e manjericão"
+          $ref: '#/components/schemas/Descricao'
         preco:
-          type: number
-          format: double
-          example: 39.90
+          $ref: '#/components/schemas/Preco'
         disponibilidadeConsumoLocal:
-          type: boolean
-          example: "Consumo no local"
+          $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
         foto:
-          type: string
-          example: "/imagens/cardapio/pizza-margherita-nova.jpg"
+          $ref: '#/components/schemas/Foto'
 
     Restaurante:
       type: object

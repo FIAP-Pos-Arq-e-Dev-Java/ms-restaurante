@@ -68,6 +68,4 @@ public class InserirTipoCozinhaUseCaseImplTest {
         verify(tipoCozinhaDomainService, times(1)).checarExistenciaCodigo(tipoCozinhaDomain.getCodigo());
         verify(tipoCozinhaDomainService, times(1)).checarExistenciaDescricao(tipoCozinhaDomain.getDescricao());
     }
-
-
 }

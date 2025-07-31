@@ -5,6 +5,8 @@ public class RestauranteDomain {
     private Long id;
     private String nome;
     private EnderecoDomain endereco;
+    //TODO AJUSTAR RELACIONAMENTO TIPOCOZINHA
+    //private TipoCozinhaDomain tipoCozinha;
     private String tipoCozinha;
     private String horarioFuncionamento;
     private Long usuarioId;
