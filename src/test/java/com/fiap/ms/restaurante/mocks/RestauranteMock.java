@@ -4,6 +4,7 @@ import com.fiap.ms.restaurante.domain.model.EnderecoDomain;
 import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.EnderecoEntity;
 import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.RestauranteEntity;
+import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.TipoCozinhaEntity;
 import com.fiap.ms.restauranteDomain.gen.model.EnderecoDto;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteRequestDto;
 
@@ -15,7 +16,7 @@ public class RestauranteMock {
         RestauranteRequestDto restauranteRequestDto = new RestauranteRequestDto();
         restauranteRequestDto.setNome("Churrascaria do Zé");
         restauranteRequestDto.setHorarioFuncionamento("11:00 - 22:00");
-        restauranteRequestDto.setTipoCozinha("BRASILEIRA");
+        restauranteRequestDto.setTipoCozinha(1L);
         restauranteRequestDto.setEndereco(getEnderecoDto());
         return restauranteRequestDto;
     }
@@ -30,7 +31,7 @@ public class RestauranteMock {
         restauranteDomain.setUsuarioId(1L);
         restauranteDomain.setNome("Churrascaria do Zé");
         restauranteDomain.setHorarioFuncionamento("11:00 - 22:00");
-        restauranteDomain.setTipoCozinha("BRASILEIRA");
+        restauranteDomain.setTipoCozinhaId(1L);
         restauranteDomain.setEndereco(getEnderecoDomain());
         return restauranteDomain;
     }
@@ -45,7 +46,7 @@ public class RestauranteMock {
         restauranteEntity.setUsuarioId(1L);
         restauranteEntity.setNome("Churrascaria do Zé");
         restauranteEntity.setHorarioFuncionamento("11:00 - 22:00");
-        restauranteEntity.setTipoCozinha("BRASILEIRA");
+        restauranteEntity.setTipoCozinha(new TipoCozinhaEntity());
         restauranteEntity.setEndereco(getEnderecoEntity());
         return restauranteEntity;
     }

@@ -30,6 +30,7 @@ public class ItemCardapioEntity {
 
     private String foto;
 
-    //TODO ADICIONAR ID DO RESTAURANTE
-    //FAZER RELACIONAMENTO
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurante_id")
+    private RestauranteEntity restaurante;
 }

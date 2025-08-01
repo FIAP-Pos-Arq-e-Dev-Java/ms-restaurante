@@ -2,6 +2,7 @@ package com.fiap.ms.restaurante.mocks;
 
 import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.ItemCardapioEntity;
+import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.RestauranteEntity;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 
 import java.math.BigDecimal;
@@ -27,7 +28,8 @@ public class ItemCardapioMock {
                 "Pizza tradicional com molho de tomate, mussarela e manjericão.",
                 new BigDecimal("39.90"),
                 true,
-                "/imagens/cardapio/pizza-margherita.jpg"
+                "/imagens/cardapio/pizza-margherita.jpg",
+                1L
         );
     }
 
@@ -38,7 +40,8 @@ public class ItemCardapioMock {
                 "Pizza tradicional com molho de tomate, mussarela e manjericão.",
                 new BigDecimal(" "),
                 true,
-                "/imagens/cardapio/pizza-margherita.jpg"
+                "/imagens/cardapio/pizza-margherita.jpg",
+                1L
         );
     }
 
@@ -51,7 +54,8 @@ public class ItemCardapioMock {
                         "Pizza tradicional com molho de tomate, mussarela e manjericão.",
                         new BigDecimal("39.90"),
                         true,
-                        "/imagens/cardapio/pizza-margherita.jpg"
+                        "/imagens/cardapio/pizza-margherita.jpg",
+                        1L
                 ),
                 new ItemCardapioDomain(
                         1L,
@@ -59,7 +63,8 @@ public class ItemCardapioMock {
                         "Pão brioche, hambúrguer 180g, queijo cheddar, cebola caramelizada e bacon.",
                         new BigDecimal("29.50"),
                         true,
-                        "/imagens/cardapio/hamburguer-artesanal.jpg"
+                        "/imagens/cardapio/hamburguer-artesanal.jpg",
+                        1L
                 ),
                 new ItemCardapioDomain(
                         1L,
@@ -67,7 +72,8 @@ public class ItemCardapioMock {
                         "Alface romana, frango grelhado, parmesão e molho caesar.",
                         new BigDecimal("25.00"),
                         false,
-                        "/imagens/cardapio/salada-caesar.jpg"
+                        "/imagens/cardapio/salada-caesar.jpg",
+                        1L
                 )
         );
     }
@@ -78,7 +84,8 @@ public class ItemCardapioMock {
                 "Pizza tradicional com molho de tomate, mussarela e manjericão.",
                 new BigDecimal("39.90"),
                 true,
-                "/imagens/cardapio/pizza-margherita.jpg");
+                "/imagens/cardapio/pizza-margherita.jpg",
+                new RestauranteEntity());
     }
 
     public static ItemCardapioRequestDto getItemCardapioRequestDto(){

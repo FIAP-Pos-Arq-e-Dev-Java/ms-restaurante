@@ -1,6 +1,7 @@
 package com.fiap.ms.restaurante.entrypoints.controllers.mappers;
 
 import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
+import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.ItemCardapioEntity;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioDto;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
 import org.mapstruct.Mapper;
@@ -14,7 +15,9 @@ public interface ItemCardapioDtoMapper {
     ItemCardapioDtoMapper INSTANCE = Mappers.getMapper(ItemCardapioDtoMapper.class);
 
     @Mapping(target = "id", ignore = true)
-    ItemCardapioDomain toItemCardapioDomain(ItemCardapioRequestDto itemCardapioRequestDto);
+    @Mapping(source = "restaurante", target = "restauranteId")
+    ItemCardapioDomain toItemCardapioDomain(ItemCardapioRequestDto dto);
 
-    ItemCardapioDto toItemCardapioDto(ItemCardapioDomain itemCardapioDomain);
+    @Mapping(source = "restauranteId", target = "restaurante")
+    ItemCardapioDto toItemCardapioDto(ItemCardapioDomain domain);
 }

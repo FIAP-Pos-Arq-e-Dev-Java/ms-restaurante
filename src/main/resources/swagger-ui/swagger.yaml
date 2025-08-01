@@ -361,6 +361,16 @@ components:
       format: int64
       example: 1
 
+    TipoCozinhaId:
+      type: integer
+      format: int64
+      example: 1
+
+    RestauranteId:
+      type: integer
+      format: int64
+      example: 1
+
     Codigo:
       type: integer
       format: int64
@@ -427,6 +437,8 @@ components:
           $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
         foto:
           $ref: '#/components/schemas/Foto'
+        restaurante:
+          $ref: '#/components/schemas/RestauranteId'
       required:
         - nome
         - descricao
@@ -442,6 +454,7 @@ components:
         - preco
         - disponibilidadeConsumoLocal
         - foto
+        - restauranteId
       properties:
         nome:
           $ref: '#/components/schemas/Nome'
@@ -453,6 +466,8 @@ components:
           $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
         foto:
           $ref: '#/components/schemas/Foto'
+        restaurante:
+          $ref: '#/components/schemas/RestauranteId'
 
     Restaurante:
       type: object
@@ -464,11 +479,15 @@ components:
         endereco:
           $ref: '#/components/schemas/Endereco'
         tipoCozinha:
-          $ref: '#/components/schemas/Descricao'
+          $ref: '#/components/schemas/TipoCozinha'
         horarioFuncionamento:
           $ref: '#/components/schemas/HorarioFuncionamento'
         usuarioId:
           $ref: '#/components/schemas/UsuarioId'
+        itemCardapio:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemCardapio'
       required:
         - nome
         - endereco
@@ -484,7 +503,7 @@ components:
         endereco:
           $ref: '#/components/schemas/Endereco'
         tipoCozinha:
-          $ref: '#/components/schemas/Descricao'
+          $ref: '#/components/schemas/TipoCozinhaId'
         horarioFuncionamento:
           $ref: '#/components/schemas/HorarioFuncionamento'
       required:
