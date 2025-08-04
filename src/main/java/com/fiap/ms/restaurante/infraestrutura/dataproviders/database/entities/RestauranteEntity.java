@@ -32,7 +32,6 @@ public class RestauranteEntity {
     @Column(name = "usuario_id")
     private Long usuarioId;
 
-    @JoinColumn(name = "item_cardapio")
     @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY)
     List<ItemCardapioEntity> itemCardapio;
 }

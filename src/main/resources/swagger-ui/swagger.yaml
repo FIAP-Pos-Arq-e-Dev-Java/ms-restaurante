@@ -1,549 +1,549 @@
-openapi: 3.0.3
-info:
-  title: API de Gerenciamento de Usuários e Restaurantes
-  version: 1.0.0
-  description: API para gerenciamento de usuários, restaurantes e itens do cardápio.
+  openapi: 3.0.3
+  info:
+    title: API de Gerenciamento de Usuários e Restaurantes
+    version: 1.0.0
+    description: API para gerenciamento de usuários, restaurantes e itens do cardápio.
 
-tags:
-  - name: ItemCardapio
-    description: Operações relacionadas aos itens do cardápio
-  - name: Restaurante
-    description: Operações relacionadas aos restaurantes
-  - name: TipoCozinha
-    description: Dominios de tipos de cozinhas
+  tags:
+    - name: ItemCardapio
+      description: Operações relacionadas aos itens do cardápio
+    - name: Restaurante
+      description: Operações relacionadas aos restaurantes
+    - name: TipoCozinha
+      description: Dominios de tipos de cozinhas
 
-paths:
-  # Rotas Itens do Cardápio
-  /item-cardapio:
-    post:
-      tags:
-        - ItemCardapio
-      summary: Criar um novo item de cardápio
-      operationId: inserirItemCardapio
-      requestBody:
-        content:
-          application/json:
+  paths:
+    # Rotas Itens do Cardápio
+    /item-cardapio:
+      post:
+        tags:
+          - ItemCardapio
+        summary: Criar um novo item de cardápio
+        operationId: inserirItemCardapio
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCardapioRequest'
+        responses:
+          '201':
+            description: Criado com sucesso
+
+      get:
+        tags:
+          - ItemCardapio
+        summary: Buscar lista de itens do cardápio
+        operationId: buscarItensCardapio
+        parameters:
+          - name: nome
+            in: query
+            required: false
             schema:
-              $ref: '#/components/schemas/ItemCardapioRequest'
-      responses:
-        '201':
-          description: Criado com sucesso
+              $ref: '#/components/schemas/Nome'
+          - name: disponibilidadeConsumoLocal
+            in: query
+            required: false
+            schema:
+              $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
+        responses:
+          '200':
+            description: Lista de itens do cardápio
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ItemCardapio'
+          '404':
+            description: Nenhum item encontrado
 
-    get:
-      tags:
-        - ItemCardapio
-      summary: Buscar lista de itens do cardápio
-      operationId: buscarItensCardapio
-      parameters:
-        - name: nome
-          in: query
-          required: false
-          schema:
+    /item-cardapio/{id}:
+      patch:
+        tags:
+          - ItemCardapio
+        summary: Atualizar item do cardápio por ID
+        operationId: atualizarItemCardapio
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/Id'
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemCardapioRequest'
+        responses:
+          '204':
+            description: Atualizado com sucesso
+          '404':
+            description: Item do cardápio não encontrado
+
+      delete:
+        tags:
+          - ItemCardapio
+        summary: Deletar item do cardápio por ID
+        operationId: deletarItemCardapio
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/Id'
+        responses:
+          '204':
+            description: Removido com sucesso
+          '404':
+            description: Item do cardápio não encontrado
+
+
+    # Rotas Restaurante
+    /restaurantes:
+      get:
+        tags:
+          - Restaurante
+        summary: Buscar restaurantes por filtros
+        description: Retorna uma lista de restaurantes de acordo com os filtros opcionais de nome, id do usuário e horário de funcionamento.
+        operationId: buscarRestaurante
+        parameters:
+          - name: nome
+            in: query
+            required: false
+            schema:
+              $ref: '#/components/schemas/Nome'
+          - name: usuarioId
+            in: query
+            required: false
+            schema:
+              $ref: '#/components/schemas/UsuarioId'
+          - name: horarioFuncionamento
+            in: query
+            required: false
+            schema:
+              $ref: '#/components/schemas/HorarioFuncionamento'
+        responses:
+          '200':
+            description: Lista de restaurantes encontrados
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Restaurante'
+          '204':
+            description: Nenhum restaurante encontrado
+          '500':
+            description: Erro interno do servidor
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+      post:
+        tags:
+          - Restaurante
+        summary: Criar novo restaurante
+        description: Cria um novo restaurante com os dados fornecidos, incluindo o dono (usuário responsável).
+        operationId: inserirRestaurante
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestauranteRequest'
+        responses:
+          '201':
+            description: Restaurante criado com sucesso
+          '400':
+            description: Requisição inválida
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '409':
+            description: Restaurante ou usuário dono já existe
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '500':
+            description: Erro interno do servidor
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+
+    /restaurantes/{usuarioId}/exists:
+      get:
+        tags:
+          - Restaurante
+        summary: Verificar se restaurante existe por ID
+        operationId: verificarExistenciaUsuarioRestaurante
+        parameters:
+          - name: usuarioId
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/UsuarioId'
+        responses:
+          '200':
+            description: Resultado da verificação de existência
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RestauranteUserExistsResponse'
+
+
+    /restaurantes/{id}:
+      patch:
+        tags:
+          - Restaurante
+        summary: Atualizar dados do restaurante
+        description: Atualiza os dados de um restaurante existente identificado pelo nome do usuário do dono.
+        operationId: atualizarRestaurante
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/Id'
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestauranteRequest'
+        responses:
+          '200':
+            description: Restaurante atualizado com sucesso
+          '400':
+            description: Requisição inválida
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '404':
+            description: Restaurante não encontrado
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '500':
+            description: Erro interno do servidor
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+      delete:
+        tags:
+          - Restaurante
+        summary: Remover restaurante
+        description: Remove um restaurante identificado pelo nome do usuário do dono.
+        operationId: deletarRestaurante
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/Id'
+        responses:
+          '204':
+            description: Restaurante removido com sucesso
+          '404':
+            description: Restaurante não encontrado
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+          '500':
+            description: Erro interno do servidor
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ErrorResponse'
+
+    /tipo-cozinha:
+      post:
+        tags:
+          - TipoCozinha
+        summary: Criar um novo tipo de cozinha
+        operationId: inserirTipoCozinha
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoCozinha'
+        responses:
+          '201':
+            description: Criado com sucesso
+
+      get:
+        tags:
+          - TipoCozinha
+        summary: Buscar lista de tipos de cozinhas
+        operationId: buscarTiposCozinhas
+        parameters:
+          - name: codigo
+            in: query
+            schema:
+              $ref: '#/components/schemas/Codigo'
+          - in: query
+            name: descricao
+            schema:
+              $ref: '#/components/schemas/Descricao'
+        responses:
+          '200':
+            description: Tipo de cozinha encontrado
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/TipoCozinha'
+          '404':
+            description: Tipo de cozinha não encontrado
+    /tipo-cozinha/{codigo}:
+      patch:
+        tags:
+          - TipoCozinha
+        summary: Atualizar tipo de cozinha por codigo
+        operationId: atualizarTipoCozinha
+        parameters:
+          - in: path
+            name: codigo
+            required: true
+            schema:
+              type: integer
+              format: int64
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TipoCozinha'
+        responses:
+          '204':
+            description: Atualizado com sucesso
+          '404':
+            description: Tipo de cozinha não encontrado
+      delete:
+        tags:
+          - TipoCozinha
+        summary: Deletar tipo de cozinha por codigo
+        operationId: deletarTipoCozinha
+        parameters:
+          - name: codigo
+            in: path
+            required: true
+            schema:
+              $ref: '#/components/schemas/Codigo'
+        responses:
+          '204':
+            description: Removido com sucesso
+          '404':
+            description: Tipo de cozinha não encontrado
+
+
+  components:
+    schemas:
+      Id:
+        type: integer
+        format: int64
+        example: 1
+
+      UsuarioId:
+        type: integer
+        format: int64
+        example: 1
+
+      TipoCozinhaId:
+        type: integer
+        format: int64
+        example: 1
+
+      RestauranteId:
+        type: integer
+        format: int64
+        example: 1
+
+      Codigo:
+        type: integer
+        format: int64
+        example: 1
+
+      Descricao:
+        type: string
+        example: "Italiana"
+
+      Nome:
+        type: string
+        example: "Sabor Caseiro"
+
+      HorarioFuncionamento:
+        type: string
+        example: "10:00 - 22:00"
+
+      DisponibilidadeConsumoLocal:
+        type: boolean
+        description: "Disponibilidade para pedir apenas no restaurante"
+        example: true
+
+      Preco:
+        type: number
+        format: double
+        example: 39.90
+
+      Foto:
+        type: string
+        description: "Caminho da imagem do prato"
+        example: "/imagens/cardapio/pizza-margherita.jpg"
+
+      Endereco:
+        type: object
+        properties:
+          street:
+            type: string
+          number:
+            type: string
+          complement:
+            type: string
+          city:
+            type: string
+          state:
+            type: string
+        required:
+          - street
+          - number
+          - city
+          - state
+
+      ItemCardapio:
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/Id'
+          nome:
             $ref: '#/components/schemas/Nome'
-        - name: disponibilidadeConsumoLocal
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
-      responses:
-        '200':
-          description: Lista de itens do cardápio
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/ItemCardapio'
-        '404':
-          description: Nenhum item encontrado
-
-  /item-cardapio/{id}:
-    patch:
-      tags:
-        - ItemCardapio
-      summary: Atualizar item do cardápio por ID
-      operationId: atualizarItemCardapio
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ItemCardapioRequest'
-      responses:
-        '204':
-          description: Atualizado com sucesso
-        '404':
-          description: Item do cardápio não encontrado
-
-    delete:
-      tags:
-        - ItemCardapio
-      summary: Deletar item do cardápio por ID
-      operationId: deletarItemCardapio
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Id'
-      responses:
-        '204':
-          description: Removido com sucesso
-        '404':
-          description: Item do cardápio não encontrado
-
-
-  # Rotas Restaurante
-  /restaurantes:
-    get:
-      tags:
-        - Restaurante
-      summary: Buscar restaurantes por filtros
-      description: Retorna uma lista de restaurantes de acordo com os filtros opcionais de nome, id do usuário e horário de funcionamento.
-      operationId: buscarRestaurante
-      parameters:
-        - name: nome
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/Nome'
-        - name: usuarioId
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/UsuarioId'
-        - name: horarioFuncionamento
-          in: query
-          required: false
-          schema:
-            $ref: '#/components/schemas/HorarioFuncionamento'
-      responses:
-        '200':
-          description: Lista de restaurantes encontrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Restaurante'
-        '204':
-          description: Nenhum restaurante encontrado
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-    post:
-      tags:
-        - Restaurante
-      summary: Criar novo restaurante
-      description: Cria um novo restaurante com os dados fornecidos, incluindo o dono (usuário responsável).
-      operationId: inserirRestaurante
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RestauranteRequest'
-      responses:
-        '201':
-          description: Restaurante criado com sucesso
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '409':
-          description: Restaurante ou usuário dono já existe
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-
-  /restaurantes/{usuarioId}/exists:
-    get:
-      tags:
-        - Restaurante
-      summary: Verificar se restaurante existe por ID
-      operationId: verificarExistenciaUsuarioRestaurante
-      parameters:
-        - name: usuarioId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/UsuarioId'
-      responses:
-        '200':
-          description: Resultado da verificação de existência
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RestauranteUserExistsResponse'
-
-
-  /restaurantes/{id}:
-    patch:
-      tags:
-        - Restaurante
-      summary: Atualizar dados do restaurante
-      description: Atualiza os dados de um restaurante existente identificado pelo nome do usuário do dono.
-      operationId: atualizarRestaurante
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Id'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RestauranteRequest'
-      responses:
-        '200':
-          description: Restaurante atualizado com sucesso
-        '400':
-          description: Requisição inválida
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '404':
-          description: Restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-    delete:
-      tags:
-        - Restaurante
-      summary: Remover restaurante
-      description: Remove um restaurante identificado pelo nome do usuário do dono.
-      operationId: deletarRestaurante
-      parameters:
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/Id'
-      responses:
-        '204':
-          description: Restaurante removido com sucesso
-        '404':
-          description: Restaurante não encontrado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-        '500':
-          description: Erro interno do servidor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-
-  /tipo-cozinha:
-    post:
-      tags:
-        - TipoCozinha
-      summary: Criar um novo tipo de cozinha
-      operationId: inserirTipoCozinha
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TipoCozinha'
-      responses:
-        '201':
-          description: Criado com sucesso
-
-    get:
-      tags:
-        - TipoCozinha
-      summary: Buscar lista de tipos de cozinhas
-      operationId: buscarTiposCozinhas
-      parameters:
-        - name: codigo
-          in: query
-          schema:
-            $ref: '#/components/schemas/Codigo'
-        - in: query
-          name: descricao
-          schema:
+          descricao:
             $ref: '#/components/schemas/Descricao'
-      responses:
-        '200':
-          description: Tipo de cozinha encontrado
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/TipoCozinha'
-        '404':
-          description: Tipo de cozinha não encontrado
-  /tipo-cozinha/{codigo}:
-    patch:
-      tags:
-        - TipoCozinha
-      summary: Atualizar tipo de cozinha por codigo
-      operationId: atualizarTipoCozinha
-      parameters:
-        - in: path
-          name: codigo
-          required: true
-          schema:
-            type: integer
-            format: int64
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TipoCozinha'
-      responses:
-        '204':
-          description: Atualizado com sucesso
-        '404':
-          description: Tipo de cozinha não encontrado
-    delete:
-      tags:
-        - TipoCozinha
-      summary: Deletar tipo de cozinha por codigo
-      operationId: deletarTipoCozinha
-      parameters:
-        - name: codigo
-          in: path
-          required: true
-          schema:
+          preco:
+            $ref: '#/components/schemas/Preco'
+          disponibilidadeConsumoLocal:
+            $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
+          foto:
+            $ref: '#/components/schemas/Foto'
+          restaurante:
+            $ref: '#/components/schemas/RestauranteId'
+        required:
+          - nome
+          - descricao
+          - preco
+          - disponibilidadeConsumoLocal
+          - foto
+
+      ItemCardapioRequest:
+        type: object
+        required:
+          - nome
+          - descricao
+          - preco
+          - disponibilidadeConsumoLocal
+          - foto
+          - restauranteId
+        properties:
+          nome:
+            $ref: '#/components/schemas/Nome'
+          descricao:
+            $ref: '#/components/schemas/Descricao'
+          preco:
+            $ref: '#/components/schemas/Preco'
+          disponibilidadeConsumoLocal:
+            $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
+          foto:
+            $ref: '#/components/schemas/Foto'
+          restaurante:
+            $ref: '#/components/schemas/RestauranteId'
+
+      Restaurante:
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/Id'
+          nome:
+            $ref: '#/components/schemas/Nome'
+          endereco:
+            $ref: '#/components/schemas/Endereco'
+          tipoCozinha:
+            $ref: '#/components/schemas/TipoCozinha'
+          horarioFuncionamento:
+            $ref: '#/components/schemas/HorarioFuncionamento'
+          usuarioId:
+            $ref: '#/components/schemas/UsuarioId'
+          itemCardapio:
+            type: array
+            items:
+              $ref: '#/components/schemas/ItemCardapio'
+        required:
+          - nome
+          - endereco
+          - tipoCozinha
+          - horarioFuncionamento
+          - usuario
+
+      RestauranteRequest:
+        type: object
+        properties:
+          nome:
+            $ref: '#/components/schemas/Nome'
+          endereco:
+            $ref: '#/components/schemas/Endereco'
+          tipoCozinha:
+            $ref: '#/components/schemas/TipoCozinhaId'
+          horarioFuncionamento:
+            $ref: '#/components/schemas/HorarioFuncionamento'
+        required:
+          - nome
+          - endereco
+          - tipoCozinha
+          - horarioFuncionamento
+          - usuario
+
+      RestauranteUserExistsResponse:
+        type: object
+        properties:
+          exists:
+            type: boolean
+            example: true
+
+      TipoCozinha:
+        type: object
+        properties:
+          codigo:
             $ref: '#/components/schemas/Codigo'
-      responses:
-        '204':
-          description: Removido com sucesso
-        '404':
-          description: Tipo de cozinha não encontrado
+          descricao:
+            $ref: '#/components/schemas/Descricao'
 
-
-components:
-  schemas:
-    Id:
-      type: integer
-      format: int64
-      example: 1
-
-    UsuarioId:
-      type: integer
-      format: int64
-      example: 1
-
-    TipoCozinhaId:
-      type: integer
-      format: int64
-      example: 1
-
-    RestauranteId:
-      type: integer
-      format: int64
-      example: 1
-
-    Codigo:
-      type: integer
-      format: int64
-      example: 1
-
-    Descricao:
-      type: string
-      example: "Italiana"
-
-    Nome:
-      type: string
-      example: "Sabor Caseiro"
-
-    HorarioFuncionamento:
-      type: string
-      example: "10:00 - 22:00"
-
-    DisponibilidadeConsumoLocal:
-      type: boolean
-      description: "Disponibilidade para pedir apenas no restaurante"
-      example: true
-
-    Preco:
-      type: number
-      format: double
-      example: 39.90
-
-    Foto:
-      type: string
-      description: "Caminho da imagem do prato"
-      example: "/imagens/cardapio/pizza-margherita.jpg"
-
-    Endereco:
-      type: object
-      properties:
-        street:
-          type: string
-        number:
-          type: string
-        complement:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-      required:
-        - street
-        - number
-        - city
-        - state
-
-    ItemCardapio:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/Id'
-        nome:
-          $ref: '#/components/schemas/Nome'
-        descricao:
-          $ref: '#/components/schemas/Descricao'
-        preco:
-          $ref: '#/components/schemas/Preco'
-        disponibilidadeConsumoLocal:
-          $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
-        foto:
-          $ref: '#/components/schemas/Foto'
-        restaurante:
-          $ref: '#/components/schemas/RestauranteId'
-      required:
-        - nome
-        - descricao
-        - preco
-        - disponibilidadeConsumoLocal
-        - foto
-
-    ItemCardapioRequest:
-      type: object
-      required:
-        - nome
-        - descricao
-        - preco
-        - disponibilidadeConsumoLocal
-        - foto
-        - restauranteId
-      properties:
-        nome:
-          $ref: '#/components/schemas/Nome'
-        descricao:
-          $ref: '#/components/schemas/Descricao'
-        preco:
-          $ref: '#/components/schemas/Preco'
-        disponibilidadeConsumoLocal:
-          $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
-        foto:
-          $ref: '#/components/schemas/Foto'
-        restaurante:
-          $ref: '#/components/schemas/RestauranteId'
-
-    Restaurante:
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/Id'
-        nome:
-          $ref: '#/components/schemas/Nome'
-        endereco:
-          $ref: '#/components/schemas/Endereco'
-        tipoCozinha:
-          $ref: '#/components/schemas/TipoCozinha'
-        horarioFuncionamento:
-          $ref: '#/components/schemas/HorarioFuncionamento'
-        usuarioId:
-          $ref: '#/components/schemas/UsuarioId'
-        itemCardapio:
-          type: array
-          items:
-            $ref: '#/components/schemas/ItemCardapio'
-      required:
-        - nome
-        - endereco
-        - tipoCozinha
-        - horarioFuncionamento
-        - usuario
-
-    RestauranteRequest:
-      type: object
-      properties:
-        nome:
-          $ref: '#/components/schemas/Nome'
-        endereco:
-          $ref: '#/components/schemas/Endereco'
-        tipoCozinha:
-          $ref: '#/components/schemas/TipoCozinhaId'
-        horarioFuncionamento:
-          $ref: '#/components/schemas/HorarioFuncionamento'
-      required:
-        - nome
-        - endereco
-        - tipoCozinha
-        - horarioFuncionamento
-        - usuario
-
-    RestauranteUserExistsResponse:
-      type: object
-      properties:
-        exists:
-          type: boolean
-          example: true
-
-    TipoCozinha:
-      type: object
-      properties:
-        codigo:
-          $ref: '#/components/schemas/Codigo'
-        descricao:
-          $ref: '#/components/schemas/Descricao'
-
-    ErrorResponse:
-      type: object
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          example: "2025-05-14T15:42:00Z"
-        status:
-          type: integer
-          example: 404
-        error:
-          type: string
-          example: "Not Found"
-        message:
-          type: string
-          example: "Recurso não encontrado"
-        path:
-          type: string
-          example: "/restaurantes/restaurante123/item-cardapio"
+      ErrorResponse:
+        type: object
+        properties:
+          timestamp:
+            type: string
+            format: date-time
+            example: "2025-05-14T15:42:00Z"
+          status:
+            type: integer
+            example: 404
+          error:
+            type: string
+            example: "Not Found"
+          message:
+            type: string
+            example: "Recurso não encontrado"
+          path:
+            type: string
+            example: "/restaurantes/restaurante123/item-cardapio"
