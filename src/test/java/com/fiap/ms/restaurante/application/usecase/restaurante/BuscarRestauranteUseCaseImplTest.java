@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 
 import static com.fiap.ms.restaurante.mocks.RestauranteMock.getListRestauranteDomain;
@@ -43,14 +44,15 @@ public class BuscarRestauranteUseCaseImplTest {
     @Test
     void buscarRestaurante_filtroNome_sucesso() {
         String nome = "Churrascaria";
-        List<RestauranteDomain> restauranteDomains = getListRestauranteDomain();
+        RestauranteDomain restauranteDomains = new RestauranteDomain(1L, "Churrascaria do Zé", null, null, "11:00 - 22:00", 1L, Collections.emptyList());
 
-        when(restaurante.buscar(nome, null, null)).thenReturn(restauranteDomains);
+
+        when(restaurante.buscar(nome, null, null)).thenReturn(List.of(restauranteDomains));
 
         List<RestauranteDomain> result = buscarRestauranteUseCase.buscar(nome, null, null);
 
         assertNotNull(result);
-        assertEquals(restauranteDomains.size(), result.size());
+        assertEquals(List.of(restauranteDomains).size(), result.size());
         verify(restaurante, times(1)).buscar(nome, null, null);
     }
 

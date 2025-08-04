@@ -46,8 +46,8 @@ public class ItemCardapioImpl implements ItemCardapio {
     }
 
     @Override
-    public Optional<ItemCardapioDomain> buscarPorDescricao(String descricao) {
-        var entity = repository.findByDescricaoIgnoreCase(descricao);
+    public Optional<ItemCardapioDomain> buscarPorDescricaoERestauranteIdENome(String descricao, Long restauranteId, String nome) {
+        var entity = repository.findByDescricaoIgnoreCaseAndRestauranteIdAndNome(descricao, restauranteId, nome);
         return entity.map(ItemCardapioEntityMapper.INSTANCE::toItemCardapioDomain);
     }
 }

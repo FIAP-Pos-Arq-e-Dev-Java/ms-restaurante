@@ -41,7 +41,6 @@ public class RestauranteController implements RestauranteApi{
 
     @Override
     public ResponseEntity<Void> _atualizarRestaurante(Long id, RestauranteRequestDto restauranteRequestDto) {
-        //TODO RestauranteRequestDto.tipoCozinha (String virar um Long)
         var domain = RestauranteDtoMapper.INSTANCE.toRestauranteDomain(restauranteRequestDto);
         atualizarRestauranteUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();

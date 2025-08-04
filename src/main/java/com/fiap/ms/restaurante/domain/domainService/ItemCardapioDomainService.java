@@ -4,6 +4,6 @@ import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
 
 public interface ItemCardapioDomainService {
 
-    void checarExistenciaDescricao(String descricao);
+    void checarExistenciaItem(String descricao, Long restauranteId, String nome);
     ItemCardapioDomain buscarItemCardapioPorId(Long id);
 }

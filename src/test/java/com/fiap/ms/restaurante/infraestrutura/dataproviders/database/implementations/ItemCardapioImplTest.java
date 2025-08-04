@@ -80,11 +80,14 @@ class ItemCardapioImplTest {
         ItemCardapioDomain itens =  getItemCardapioDomainCompleto();
         ItemCardapioEntity entity = getItemCardapioEntity();
 
-        when(repository.findByDescricaoIgnoreCase(entity.getDescricao())).thenReturn(Optional.of(entity));
+        when(repository.findByDescricaoIgnoreCaseAndRestauranteIdAndNome(entity.getDescricao(), entity.getRestauranteId(), entity.getNome()))
+                .thenReturn(Optional.of(entity));
 
-        Optional<ItemCardapioDomain> result = itensCardapioImpl.buscarPorDescricao(itens.getDescricao());
+        Optional<ItemCardapioDomain> result = itensCardapioImpl
+                .buscarPorDescricaoERestauranteIdENome(itens.getDescricao(), itens.getRestauranteId(), itens.getNome());
 
         assertNotNull(result);
-        verify(repository, times(1)).findByDescricaoIgnoreCase(entity.getDescricao());
+        verify(repository, times(1))
+                .findByDescricaoIgnoreCaseAndRestauranteIdAndNome(entity.getDescricao(), entity.getRestauranteId(), entity.getNome());
     }
 }

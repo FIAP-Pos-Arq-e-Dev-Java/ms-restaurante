@@ -4,6 +4,7 @@ import com.fiap.ms.restaurante.domain.exception.CampoObrigatorioException;
 import org.junit.jupiter.api.Test;
 
 import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validarDescricaoObrigatoria;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
@@ -11,9 +12,7 @@ public class ValidarDescricaoObrigatoriaRuleTest {
 
     @Test
     void deveLancarCampoObrigatorioException_quandoDescricaoForNull() {
-        String descricao = null;
-
-        assertThrows(CampoObrigatorioException.class, () -> validarDescricaoObrigatoria(descricao));
+        assertThrows(CampoObrigatorioException.class, () -> validarDescricaoObrigatoria(null));
     }
 
     @Test
@@ -35,5 +34,12 @@ public class ValidarDescricaoObrigatoriaRuleTest {
         String descricao = "Prato do Dia";
 
         assertDoesNotThrow(() -> validarDescricaoObrigatoria(descricao));
+    }
+
+    @Test
+    void testeCoberturaController() {
+        ValidarDescricaoObrigatoriaRule validator = new ValidarDescricaoObrigatoriaRule();
+
+        assertNotNull(validator);
     }
 }

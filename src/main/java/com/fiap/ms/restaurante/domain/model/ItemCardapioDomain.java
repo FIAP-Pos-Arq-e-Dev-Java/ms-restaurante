@@ -10,17 +10,19 @@ public class ItemCardapioDomain {
     private BigDecimal preco;
     private Boolean disponibilidadeConsumoLocal;
     private String foto;
+    private Long restauranteId;
 
-    public ItemCardapioDomain(Long id, String nome, String descricao, BigDecimal preco, Boolean disponibilidadeConsumoLocal, String foto) {
+    public ItemCardapioDomain() {
+    }
+
+    public ItemCardapioDomain(Long id, String nome, String descricao, BigDecimal preco, Boolean disponibilidadeConsumoLocal, String foto, Long restauranteId) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.disponibilidadeConsumoLocal = disponibilidadeConsumoLocal;
         this.foto = foto;
-    }
-
-    public ItemCardapioDomain() {
+        this.restauranteId = restauranteId;
     }
 
     public Long getId() {
@@ -69,5 +71,13 @@ public class ItemCardapioDomain {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public Long getRestauranteId() {
+        return restauranteId;
+    }
+
+    public void setRestauranteId(Long restauranteId) {
+        this.restauranteId = restauranteId;
     }
 }

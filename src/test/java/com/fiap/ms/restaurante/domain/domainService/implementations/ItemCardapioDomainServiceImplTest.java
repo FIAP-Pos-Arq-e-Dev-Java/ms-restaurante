@@ -15,6 +15,7 @@ import java.util.Optional;
 import static com.fiap.ms.restaurante.mocks.ItemCardapioMock.getItemCardapioDomainCompleto;
 import static org.junit.Assert.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -31,20 +32,20 @@ public class ItemCardapioDomainServiceImplTest {
     @Test
     void checarExistenciaDescricao_descricaoExistente_objetoJaExisteException() {
         ItemCardapioDomain itemCardapioDomain = getItemCardapioDomainCompleto();
-        when(itemCardapio.buscarPorDescricao(anyString())).thenReturn(Optional.of(itemCardapioDomain));
+        when(itemCardapio.buscarPorDescricaoERestauranteIdENome(anyString(), anyLong(), anyString())).thenReturn(Optional.of(itemCardapioDomain));
 
-        assertThrows(ObjetoJaExisteException.class, () -> itemCardapioDomainService.checarExistenciaDescricao("Pizza Margherita"));
+        assertThrows(ObjetoJaExisteException.class, () -> itemCardapioDomainService.checarExistenciaItem("Pizza Margherita", 1L, "Pizza Margherita"));
 
-        verify(itemCardapio).buscarPorDescricao(anyString());
+        verify(itemCardapio).buscarPorDescricaoERestauranteIdENome(anyString(), anyLong(), anyString());
     }
 
     @Test
     void checarExistenciaDescricao_descricaoNaoExistente_sucesso() {
-        when(itemCardapio.buscarPorDescricao(anyString())).thenReturn(Optional.empty());
+        when(itemCardapio.buscarPorDescricaoERestauranteIdENome(anyString(), anyLong(), anyString())).thenReturn(Optional.empty());
 
-        itemCardapioDomainService.checarExistenciaDescricao("Pizza Margherita");
+        itemCardapioDomainService.checarExistenciaItem("Pizza Margherita", 1L, "Pizza Margherita");
 
-        verify(itemCardapio).buscarPorDescricao(anyString());
+        verify(itemCardapio).buscarPorDescricaoERestauranteIdENome(anyString(), anyLong(), anyString());
     }
 
     @Test

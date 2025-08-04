@@ -1,6 +1,7 @@
 package com.fiap.ms.restaurante.entrypoints.controllers.mappers;
 
 import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
+import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteDto;
 import com.fiap.ms.restauranteDomain.gen.model.RestauranteRequestDto;
 import org.mapstruct.Mapper;
@@ -15,7 +16,19 @@ public interface RestauranteDtoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "usuarioId", ignore = true)
+    @Mapping(target = "itemCardapio", ignore = true)
+    @Mapping(target = "tipoCozinha", source = "tipoCozinha")
     RestauranteDomain toRestauranteDomain(RestauranteRequestDto restauranteRequestDto);
 
     RestauranteDto toRestauranteDto(RestauranteDomain restauranteDomain);
+
+    default  TipoCozinhaDomain codigoTipoCozinhaDomain(Long codigo) {
+        if (codigo == null) {
+            return null;
+        }
+
+        TipoCozinhaDomain tipoCozinhaDomain = new TipoCozinhaDomain();
+        tipoCozinhaDomain.setCodigo(codigo);
+        return tipoCozinhaDomain;
+    }
 }

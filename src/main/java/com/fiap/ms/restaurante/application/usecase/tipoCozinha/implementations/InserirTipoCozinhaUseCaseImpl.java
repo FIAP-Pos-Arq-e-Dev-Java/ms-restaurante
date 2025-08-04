@@ -4,6 +4,7 @@ import com.fiap.ms.restaurante.application.gateways.TipoCozinha;
 import com.fiap.ms.restaurante.application.usecase.tipoCozinha.InserirTipoCozinhaUseCase;
 import com.fiap.ms.restaurante.domain.domainService.TipoCozinhaDomainService;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
+import com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

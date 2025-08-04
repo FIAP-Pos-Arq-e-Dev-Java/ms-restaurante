@@ -30,6 +30,5 @@ public class ItemCardapioEntity {
 
     private String foto;
 
-    //TODO ADICIONAR ID DO RESTAURANTE
-    //FAZER RELACIONAMENTO
+    private Long restauranteId;
 }

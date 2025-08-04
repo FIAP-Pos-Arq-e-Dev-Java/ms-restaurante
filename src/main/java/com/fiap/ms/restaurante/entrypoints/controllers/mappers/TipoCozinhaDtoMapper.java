@@ -16,6 +16,4 @@ public interface TipoCozinhaDtoMapper {
     TipoCozinhaDomain toDomain(TipoCozinhaDto tipoCozinhaDto);
 
     TipoCozinhaDto toTipoCozinhaDto(TipoCozinhaDomain tipoCozinhaDomain);
-
-    List<TipoCozinhaDto> toListTipoCozinhaDto(List<TipoCozinhaDomain> listTipoCozinhaDomain);
 }

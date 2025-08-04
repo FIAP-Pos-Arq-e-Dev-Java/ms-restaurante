@@ -1,26 +1,28 @@
 package com.fiap.ms.restaurante.domain.model;
 
+import java.util.List;
+
 public class RestauranteDomain {
 
     private Long id;
     private String nome;
     private EnderecoDomain endereco;
-    //TODO AJUSTAR RELACIONAMENTO TIPOCOZINHA
-    //private TipoCozinhaDomain tipoCozinha;
-    private String tipoCozinha;
+    private TipoCozinhaDomain tipoCozinha;
     private String horarioFuncionamento;
     private Long usuarioId;
+    private List<ItemCardapioDomain> itemCardapio;
 
     public RestauranteDomain(){
     }
 
-    public RestauranteDomain(Long id, String nome, EnderecoDomain endereco, String tipoCozinha, String horarioFuncionamento, Long usuarioId) {
+    public RestauranteDomain(Long id, String nome, EnderecoDomain endereco, TipoCozinhaDomain tipoCozinha, String horarioFuncionamento, Long usuarioId, List<ItemCardapioDomain> itemCardapio) {
         this.id = id;
         this.nome = nome;
         this.endereco = endereco;
         this.tipoCozinha = tipoCozinha;
         this.horarioFuncionamento = horarioFuncionamento;
         this.usuarioId = usuarioId;
+        this.itemCardapio = itemCardapio;
     }
 
     public Long getId() {
@@ -47,11 +49,11 @@ public class RestauranteDomain {
         this.endereco = endereco;
     }
 
-    public String getTipoCozinha() {
+    public TipoCozinhaDomain getTipoCozinha() {
         return tipoCozinha;
     }
 
-    public void setTipoCozinha(String tipoCozinha) {
+    public void setTipoCozinha(TipoCozinhaDomain tipoCozinha) {
         this.tipoCozinha = tipoCozinha;
     }
 
@@ -69,5 +71,13 @@ public class RestauranteDomain {
 
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+    public List<ItemCardapioDomain> getItemCardapio() {
+        return itemCardapio;
+    }
+
+    public void setItemCardapio(List<ItemCardapioDomain> itemCardapio) {
+        this.itemCardapio = itemCardapio;
     }
 }

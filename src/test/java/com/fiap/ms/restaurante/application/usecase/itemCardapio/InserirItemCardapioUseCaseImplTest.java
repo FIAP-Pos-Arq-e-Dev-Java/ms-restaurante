@@ -34,12 +34,12 @@ public class InserirItemCardapioUseCaseImplTest {
     void deveSalvarItemCardapio_sucesso(){
         ItemCardapioDomain item = getItemCardapioDomainCompleto();
 
-        doNothing().when(itemCardapioDomainService).checarExistenciaDescricao(item.getDescricao());
+        doNothing().when(itemCardapioDomainService).checarExistenciaItem(item.getDescricao(), item.getRestauranteId(), item.getNome());
         doNothing().when(itemCardapio).salvar(item);
 
         inserirItemCardapioUseCase.inserir(item);
 
-        verify(itemCardapioDomainService, times(1)).checarExistenciaDescricao(item.getDescricao());
+        verify(itemCardapioDomainService, times(1)).checarExistenciaItem(item.getDescricao(), item.getRestauranteId(), item.getNome());
         verify(itemCardapio, times(1)).salvar(item);
     }
 
@@ -47,11 +47,11 @@ public class InserirItemCardapioUseCaseImplTest {
     void deveSalvarItemCardapio_descricaoExistente_objetoJaExisteException(){
         ItemCardapioDomain item = getItemCardapioDomainCompleto();
 
-        doThrow(ObjetoJaExisteException.class).when(itemCardapioDomainService).checarExistenciaDescricao(item.getDescricao());
+        doThrow(ObjetoJaExisteException.class).when(itemCardapioDomainService).checarExistenciaItem(item.getDescricao(), item.getRestauranteId(), item.getNome());
 
         assertThrows(ObjetoJaExisteException.class, () -> inserirItemCardapioUseCase.inserir(item));
 
-        verify(itemCardapioDomainService, times(1)).checarExistenciaDescricao(item.getDescricao());
+        verify(itemCardapioDomainService, times(1)).checarExistenciaItem(item.getDescricao(), item.getRestauranteId(), item.getNome());
     }
 }
 
