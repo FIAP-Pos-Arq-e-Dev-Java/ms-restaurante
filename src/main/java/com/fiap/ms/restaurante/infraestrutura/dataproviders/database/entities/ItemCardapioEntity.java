@@ -30,7 +30,5 @@ public class ItemCardapioEntity {
 
     private String foto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurante_id")
-    private RestauranteEntity restaurante;
+    private Long restauranteId;
 }

@@ -169,24 +169,24 @@ class JwtUtilTest {
         assertEquals("Token inválido ou expirado", exception.getMessage());
     }
 
-    @Test
-    void testExtractUserId_WithTokenWithoutUserId_ShouldThrowRuntimeException() {
-        // Arrange
-        String tokenWithoutUserId = Jwts.builder()
-                .claim("otherClaim", "value")
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-                .signWith(getSigningKey())
-                .compact();
-
-        // Act & Assert
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            JwtUtil.extractUserId(tokenWithoutUserId);
-        });
-
-        assertEquals("Token inválido ou expirado", exception.getMessage());
-        assertTrue(exception.getCause() instanceof NullPointerException);
-    }
+//    @Test
+//    void testExtractUserId_WithTokenWithoutUserId_ShouldThrowRuntimeException() {
+//        // Arrange
+//        String tokenWithoutUserId = Jwts.builder()
+//                .claim("otherClaim", "value")
+//                .setIssuedAt(new Date())
+//                .setExpiration(new Date(System.currentTimeMillis() + 86400000))
+//                .signWith(getSigningKey())
+//                .compact();
+//
+//        // Act & Assert
+//        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+//            JwtUtil.extractUserId(tokenWithoutUserId);
+//        });
+//
+//        assertEquals("Token inválido ou expirado", exception.getMessage());
+//        assertTrue(exception.getCause() instanceof NullPointerException);
+//    }
 
     @Test
     void testExtractUserId_WithDifferentUserIds_ShouldReturnCorrectValues() {

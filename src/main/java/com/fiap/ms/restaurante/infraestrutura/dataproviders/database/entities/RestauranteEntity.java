@@ -32,6 +32,6 @@ public class RestauranteEntity {
     @Column(name = "usuario_id")
     private Long usuarioId;
 
-    @OneToMany(mappedBy = "restaurante", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "restauranteId", fetch = FetchType.LAZY)
     List<ItemCardapioEntity> itemCardapio;
 }

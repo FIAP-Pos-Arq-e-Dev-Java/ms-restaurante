@@ -21,7 +21,7 @@ public class AtualizarRestauranteUseCaseImpl implements AtualizarRestauranteUseC
         domain.setNome(restauranteDomain.getNome());
         domain.setEndereco(restauranteDomain.getEndereco());
         domain.setHorarioFuncionamento(restauranteDomain.getHorarioFuncionamento());
-        domain.setTipoCozinhaId(restauranteDomain.getTipoCozinhaId());
+        domain.setTipoCozinha(restauranteDomain.getTipoCozinha());
         restaurante.salvar(domain);
     }
 }

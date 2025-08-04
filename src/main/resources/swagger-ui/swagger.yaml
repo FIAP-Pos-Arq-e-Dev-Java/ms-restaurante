@@ -437,7 +437,7 @@
             $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
           foto:
             $ref: '#/components/schemas/Foto'
-          restaurante:
+          restauranteId:
             $ref: '#/components/schemas/RestauranteId'
         required:
           - nome
@@ -466,7 +466,7 @@
             $ref: '#/components/schemas/DisponibilidadeConsumoLocal'
           foto:
             $ref: '#/components/schemas/Foto'
-          restaurante:
+          restauranteId:
             $ref: '#/components/schemas/RestauranteId'
 
       Restaurante:

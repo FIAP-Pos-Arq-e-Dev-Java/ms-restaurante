@@ -15,8 +15,8 @@ public class ItemCardapioDomainServiceImpl implements ItemCardapioDomainService 
     private final ItemCardapio itemCardapio;
 
     @Override
-    public void checarExistenciaDescricao(String descricao) {
-        if (itemCardapio.buscarPorDescricao(descricao.trim()).isPresent()) {
+    public void checarExistenciaItem(String descricao, Long restauranteId, String nome) {
+        if (itemCardapio.buscarPorDescricaoERestauranteIdENome(descricao.trim(), restauranteId, nome).isPresent()) {
             throw new ObjetoJaExisteException("Código ou Descrição do item de cardápio já cadastrado.");
         }
     }

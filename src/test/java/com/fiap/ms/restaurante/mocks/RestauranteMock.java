@@ -31,7 +31,7 @@ public class RestauranteMock {
         restauranteDomain.setUsuarioId(1L);
         restauranteDomain.setNome("Churrascaria do Zé");
         restauranteDomain.setHorarioFuncionamento("11:00 - 22:00");
-        restauranteDomain.setTipoCozinhaId(1L);
+//        restauranteDomain.setTipoCozinhaId(1L);
         restauranteDomain.setEndereco(getEnderecoDomain());
         return restauranteDomain;
     }

@@ -15,5 +15,5 @@ public interface ItemCardapio {
 
     void deletar(ItemCardapioDomain item);
 
-    Optional<ItemCardapioDomain> buscarPorDescricao(String descricao);
+    Optional<ItemCardapioDomain> buscarPorDescricaoERestauranteIdENome(String descricao, Long restauranteId, String nome);
 }

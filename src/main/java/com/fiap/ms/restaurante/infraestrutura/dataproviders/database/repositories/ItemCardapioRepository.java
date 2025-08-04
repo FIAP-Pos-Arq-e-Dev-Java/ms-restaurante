@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface ItemCardapioRepository extends JpaRepository<ItemCardapioEntity, Long>, JpaSpecificationExecutor<ItemCardapioEntity> {
 
-    Optional<ItemCardapioEntity> findByDescricaoIgnoreCase(String descricao);
+    Optional<ItemCardapioEntity> findByDescricaoIgnoreCaseAndRestauranteIdAndNome(String descricao, Long restauranteId, String nome);
 }

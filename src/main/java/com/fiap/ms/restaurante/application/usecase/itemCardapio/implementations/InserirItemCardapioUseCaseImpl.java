@@ -20,7 +20,7 @@ public class InserirItemCardapioUseCaseImpl implements InserirItemCardapioUseCas
     public void inserir(ItemCardapioDomain domain) {
         validarDescricaoObrigatoria(domain.getDescricao());
 
-        itemCardapioDomainService.checarExistenciaDescricao(domain.getDescricao());
+        itemCardapioDomainService.checarExistenciaItem(domain.getDescricao(), domain.getRestauranteId(), domain.getNome());
 
         itemCardapioDataSource.salvar(domain);
     }
