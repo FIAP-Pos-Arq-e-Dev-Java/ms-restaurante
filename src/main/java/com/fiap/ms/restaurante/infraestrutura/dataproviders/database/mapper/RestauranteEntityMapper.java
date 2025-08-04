@@ -13,7 +13,6 @@ public interface RestauranteEntityMapper {
 
     RestauranteEntityMapper INSTANCE = Mappers.getMapper(RestauranteEntityMapper.class);
 
-    @Mapping(target = "itemCardapio", ignore = true)
     RestauranteEntity toRestauranteEntity(RestauranteDomain restauranteDomain);
 
     RestauranteDomain toRestauranteDomain(RestauranteEntity restauranteEntity);

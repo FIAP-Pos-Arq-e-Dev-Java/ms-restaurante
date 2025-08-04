@@ -38,6 +38,7 @@ public class InserirTipoCozinhaUseCaseImplTest {
         doNothing().when(tipoCozinhaDomainService).checarExistenciaDescricao(tipoCozinhaDomain.getDescricao());
         doNothing().when(tipoCozinha).salvar(tipoCozinhaDomain);
 
+
         inserirTipoCozinhaUseCase.inserir(tipoCozinhaDomain);
 
         verify(tipoCozinhaDomainService, times(1)).checarExistenciaCodigo(tipoCozinhaDomain.getCodigo());

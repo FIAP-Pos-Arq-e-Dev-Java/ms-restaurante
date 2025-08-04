@@ -6,6 +6,7 @@ import com.fiap.ms.restaurante.domain.exception.ObjetoNaoExisteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Map;
@@ -73,5 +74,33 @@ public class GlobalExceptionHandlerTest {
         assertEquals("Tipo não encontrado", body.get("message"));
         assertEquals("/api/teste", body.get("path"));
         assertNotNull(body.get("timestamp"));
+    }
+
+    @Test
+    void deveTratarMissingServletRequestParameterException_comMensagemCorreta() {
+        MissingServletRequestParameterException ex = new MissingServletRequestParameterException("id", "String");
+
+        ResponseEntity<?> response = handler.handleMissingParams(ex);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertTrue(response.getBody() instanceof Map);
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> body = (Map<String, Object>) response.getBody();
+        assertEquals("O parâmetro 'id' é obrigatório.", body.get("error"));
+    }
+
+    @Test
+    void deveTratarOutroParametroFaltando_comMensagemDiferente() {
+        MissingServletRequestParameterException ex = new MissingServletRequestParameterException("nome", "String");
+
+        ResponseEntity<?> response = handler.handleMissingParams(ex);
+
+        assertEquals(400, response.getStatusCodeValue());
+        assertTrue(response.getBody() instanceof Map);
+
+        @SuppressWarnings("unchecked")
+        Map<String, Object> body = (Map<String, Object>) response.getBody();
+        assertEquals("O parâmetro 'nome' é obrigatório.", body.get("error"));
     }
 }

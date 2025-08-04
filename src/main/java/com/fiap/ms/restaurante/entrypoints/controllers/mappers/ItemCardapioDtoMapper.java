@@ -19,6 +19,4 @@ public interface ItemCardapioDtoMapper {
     ItemCardapioDomain toItemCardapioDomain(ItemCardapioRequestDto dto);
 
     ItemCardapioDto toItemCardapioDto(ItemCardapioDomain domain);
-
-    List<ItemCardapioDto> tolistItemCardapioDto(List<ItemCardapioDomain> domain);
 }

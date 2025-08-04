@@ -18,6 +18,7 @@ public class ItemCardapioMock {
         itemCardapioDomain.setPreco(new BigDecimal("39.90"));
         itemCardapioDomain.setDisponibilidadeConsumoLocal(true);
         itemCardapioDomain.setFoto("/imagens/cardapio/pizza-margherita.jpg");
+        itemCardapioDomain.setRestauranteId(1L);
         return itemCardapioDomain;
     }
 
@@ -78,15 +79,15 @@ public class ItemCardapioMock {
         );
     }
 
-//    public static ItemCardapioEntity getItemCardapioEntity(){
-//        return new ItemCardapioEntity(1L,
-//                "Pizza Margherita",
-//                "Pizza tradicional com molho de tomate, mussarela e manjericão.",
-//                new BigDecimal("39.90"),
-//                true,
-//                "/imagens/cardapio/pizza-margherita.jpg",
-//                new RestauranteEntity());
-//    }
+    public static ItemCardapioEntity getItemCardapioEntity(){
+        return new ItemCardapioEntity(1L,
+                "Pizza Margherita",
+                "Pizza tradicional com molho de tomate, mussarela e manjericão.",
+                new BigDecimal("39.90"),
+                true,
+                "/imagens/cardapio/pizza-margherita.jpg",
+                1L);
+    }
 
     public static ItemCardapioRequestDto getItemCardapioRequestDto(){
         ItemCardapioRequestDto itemCardapioRequestDto = new ItemCardapioRequestDto();
