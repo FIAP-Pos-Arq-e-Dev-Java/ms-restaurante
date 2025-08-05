@@ -16,4 +16,6 @@ public interface Restaurante {
     Boolean buscarUsuarioPorId(Long usuarioId);
 
     List<RestauranteDomain> buscar(String nome, Long usuarioId, String horarioFuncionamento);
+
+    Optional<RestauranteDomain> buscarPorNome(String nome);
 }

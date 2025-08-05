@@ -46,6 +46,12 @@ public class RestauranteImpl implements Restaurante {
     }
 
     @Override
+    public Optional<RestauranteDomain> buscarPorNome(String nome) {
+        var entity = repository.findByNomeIgnoreCase(nome);
+        return entity.map(RestauranteEntityMapper.INSTANCE::toRestauranteDomain);
+    }
+
+    @Override
     public Boolean buscarUsuarioPorId(Long usuarioId) {
         return repository.existsByUsuarioId(usuarioId);
     }
