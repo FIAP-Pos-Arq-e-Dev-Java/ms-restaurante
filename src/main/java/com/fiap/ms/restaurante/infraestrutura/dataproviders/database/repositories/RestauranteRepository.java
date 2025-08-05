@@ -4,7 +4,11 @@ import com.fiap.ms.restaurante.infraestrutura.dataproviders.database.entities.Re
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.Optional;
+
 public interface RestauranteRepository extends JpaRepository<RestauranteEntity, Long>, JpaSpecificationExecutor<RestauranteEntity> {
 
     Boolean existsByUsuarioId(Long usuarioId);
+
+    Optional<RestauranteEntity> findByNomeIgnoreCase(String nome);
 }

@@ -5,4 +5,5 @@ import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 public interface RestauranteDomainService {
 
     RestauranteDomain buscaRestaurantePorId(Long id);
+    void checarExistenciaNome(String nome);
 }

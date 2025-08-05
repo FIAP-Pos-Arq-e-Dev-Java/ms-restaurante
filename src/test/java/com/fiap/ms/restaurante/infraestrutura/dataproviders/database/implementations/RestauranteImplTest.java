@@ -101,4 +101,17 @@ public class RestauranteImplTest {
         assertEquals(true, usuarioExiste);
         verify(repository, times(1)).existsByUsuarioId(usuarioId);
     }
+
+    @Test
+    void buscarTipoCozinhaPorDescricao_sucesso() {
+        RestauranteDomain restauranteDomain = getRestauranteDomain();
+        RestauranteEntity restauranteEntity = getRestauranteEntity();
+
+        when(repository.findByNomeIgnoreCase(restauranteEntity.getNome())).thenReturn(Optional.of(restauranteEntity));
+
+        Optional<RestauranteDomain> result = restaurante.buscarPorNome(restauranteDomain.getNome());
+
+        assertNotNull(result);
+        verify(repository, times(1)).findByNomeIgnoreCase(restauranteEntity.getNome());
+    }
 }
