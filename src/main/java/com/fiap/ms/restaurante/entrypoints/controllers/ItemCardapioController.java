@@ -5,7 +5,7 @@ import com.fiap.ms.restaurante.application.usecase.itemCardapio.BuscaItemCardapi
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.DeletaItemCardapioUseCase;
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.InserirItemCardapioUseCase;
 import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
-import com.fiap.ms.restaurante.entrypoints.controllers.mappers.ItemCardapioDtoMapper;
+import com.fiap.ms.restaurante.entrypoints.controllers.presenter.ItemCardapioPresenter;
 import com.fiap.ms.restauranteDomain.ItemCardapioApi;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioDto;
 import com.fiap.ms.restauranteDomain.gen.model.ItemCardapioRequestDto;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -40,7 +39,7 @@ public class ItemCardapioController implements ItemCardapioApi{
 
     @Override
     public ResponseEntity<Void> _atualizarItemCardapio(Long id, ItemCardapioRequestDto itemCardapioRequestDto) {
-        var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
+        var domain = ItemCardapioPresenter.toItemCardapioDomain(itemCardapioRequestDto);
         atualizaUseCase.atualizar(id, domain);
         return ResponseEntity.noContent().build();
     }
@@ -48,10 +47,7 @@ public class ItemCardapioController implements ItemCardapioApi{
     @Override
     public ResponseEntity<List<ItemCardapioDto>> _buscarItensCardapio(String nome, Boolean disponibilidadeConsumoLocal) {
         List<ItemCardapioDomain> itensCardapioDomain = buscaUseCase.buscar(nome, disponibilidadeConsumoLocal);
-        List<ItemCardapioDto> dto = itensCardapioDomain.stream()
-                .map(ItemCardapioDtoMapper.INSTANCE::toItemCardapioDto)
-                .collect(Collectors.toList());
-
+        List<ItemCardapioDto> dto = ItemCardapioPresenter.toListItemCardapioDto(itensCardapioDomain);
         return ResponseEntity.ok(dto);
     }
 
@@ -63,7 +59,7 @@ public class ItemCardapioController implements ItemCardapioApi{
 
     @Override
     public ResponseEntity<Void> _inserirItemCardapio(ItemCardapioRequestDto itemCardapioRequestDto) {
-        var domain = ItemCardapioDtoMapper.INSTANCE.toItemCardapioDomain(itemCardapioRequestDto);
+        var domain = ItemCardapioPresenter.toItemCardapioDomain(itemCardapioRequestDto);
         inserirUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

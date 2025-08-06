@@ -6,18 +6,22 @@ import com.fiap.ms.restaurante.domain.domainService.RestauranteDomainService;
 import com.fiap.ms.restaurante.domain.domainService.TipoCozinhaDomainService;
 import com.fiap.ms.restaurante.domain.model.RestauranteDomain;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 
-@RequiredArgsConstructor
-@Service
 public class AtualizarRestauranteUseCaseImpl implements AtualizarRestauranteUseCase {
 
     private final Restaurante restaurante;
     private final RestauranteDomainService  restauranteDomainService;
     private final TipoCozinhaDomainService tipoCozinhaDomainService;
+
+    public AtualizarRestauranteUseCaseImpl(Restaurante restaurante,
+                                           RestauranteDomainService  restauranteDomainService,
+                                           TipoCozinhaDomainService tipoCozinhaDomainService) {
+        this.restaurante = restaurante;
+        this.restauranteDomainService = restauranteDomainService;
+        this.tipoCozinhaDomainService = tipoCozinhaDomainService;
+    }
 
     @Override
     public void atualizar(Long id, RestauranteDomain restauranteDomain) {

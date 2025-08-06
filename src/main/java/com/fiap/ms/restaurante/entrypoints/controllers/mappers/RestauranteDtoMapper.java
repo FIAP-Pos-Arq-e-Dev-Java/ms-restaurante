@@ -9,6 +9,8 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface RestauranteDtoMapper {
 
@@ -21,6 +23,8 @@ public interface RestauranteDtoMapper {
     RestauranteDomain toRestauranteDomain(RestauranteRequestDto restauranteRequestDto);
 
     RestauranteDto toRestauranteDto(RestauranteDomain restauranteDomain);
+
+    List<RestauranteDto> toListRestauranteDto(List<RestauranteDomain> restauranteDomain);
 
     default  TipoCozinhaDomain codigoTipoCozinhaDomain(Long codigo) {
         if (codigo == null) {

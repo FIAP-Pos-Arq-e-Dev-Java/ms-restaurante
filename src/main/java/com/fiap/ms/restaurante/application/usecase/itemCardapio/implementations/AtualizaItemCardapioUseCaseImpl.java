@@ -4,17 +4,19 @@ import com.fiap.ms.restaurante.application.gateways.ItemCardapio;
 import com.fiap.ms.restaurante.application.usecase.itemCardapio.AtualizaItemCardapioUseCase;
 import com.fiap.ms.restaurante.domain.domainService.ItemCardapioDomainService;
 import com.fiap.ms.restaurante.domain.model.ItemCardapioDomain;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import static com.fiap.ms.restaurante.domain.rules.ValidarDescricaoObrigatoriaRule.validarDescricaoObrigatoria;
 
-@RequiredArgsConstructor
-@Service
 public class AtualizaItemCardapioUseCaseImpl implements AtualizaItemCardapioUseCase {
 
     private final ItemCardapio itemCardapio;
     private final ItemCardapioDomainService itemCardapioDomainService;
+
+    public AtualizaItemCardapioUseCaseImpl(ItemCardapio itemCardapio,
+                                           ItemCardapioDomainService itemCardapioDomainService) {
+        this.itemCardapio = itemCardapio;
+        this.itemCardapioDomainService = itemCardapioDomainService;
+    }
 
     @Override
     public void atualizar(Long id, ItemCardapioDomain itemCardapioDomain) {
