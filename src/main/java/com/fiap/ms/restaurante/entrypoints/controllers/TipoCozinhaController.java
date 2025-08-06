@@ -5,7 +5,7 @@ import com.fiap.ms.restaurante.application.usecase.tipoCozinha.BuscarTipoCozinha
 import com.fiap.ms.restaurante.application.usecase.tipoCozinha.DeletarTipoCozinhaUseCase;
 import com.fiap.ms.restaurante.application.usecase.tipoCozinha.InserirTipoCozinhaUseCase;
 import com.fiap.ms.restaurante.domain.model.TipoCozinhaDomain;
-import com.fiap.ms.restaurante.entrypoints.controllers.mappers.TipoCozinhaDtoMapper;
+import com.fiap.ms.restaurante.entrypoints.controllers.presenter.TipoCozinhaPresenter;
 import com.fiap.ms.restauranteDomain.TipoCozinhaApi;
 import com.fiap.ms.restauranteDomain.gen.model.TipoCozinhaDto;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +38,7 @@ public class TipoCozinhaController implements TipoCozinhaApi{
 
     @Override
     public ResponseEntity<Void> _atualizarTipoCozinha(Long codigo, TipoCozinhaDto tipoCozinhaDto) {
-        var domain = TipoCozinhaDtoMapper.INSTANCE.toDomain(tipoCozinhaDto);
+        var domain = TipoCozinhaPresenter.toDomain(tipoCozinhaDto);
         atualizarTipoCozinhaUseCase.atualizar(codigo, domain);
         return ResponseEntity.noContent().build();
     }
@@ -46,10 +46,7 @@ public class TipoCozinhaController implements TipoCozinhaApi{
     @Override
     public ResponseEntity<List<TipoCozinhaDto>> _buscarTiposCozinhas(Long codigo, String descricao) {
         List<TipoCozinhaDomain> dominios = buscarTipoCozinhaUseCase.buscar(codigo, descricao);
-        List<TipoCozinhaDto> dtos = dominios.stream()
-                .map(TipoCozinhaDtoMapper.INSTANCE::toTipoCozinhaDto)
-                .toList();
-
+        List<TipoCozinhaDto> dtos = TipoCozinhaPresenter.toListTipoCozinhaDto(dominios);
         return ResponseEntity.ok(dtos);
     }
 
@@ -61,7 +58,7 @@ public class TipoCozinhaController implements TipoCozinhaApi{
 
     @Override
     public ResponseEntity<Void> _inserirTipoCozinha(TipoCozinhaDto tipoCozinhaDto) {
-        var domain = TipoCozinhaDtoMapper.INSTANCE.toDomain(tipoCozinhaDto);
+        var domain = TipoCozinhaPresenter.toDomain(tipoCozinhaDto);
         inserirTipoCozinhaUseCase.inserir(domain);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

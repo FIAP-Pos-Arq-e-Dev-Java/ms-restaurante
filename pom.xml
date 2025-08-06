@@ -219,6 +219,7 @@
 					<excludes>
 						<exclude>**/restauranteDomain/**</exclude>
 						<exclude>**/MsRestauranteApplication.class/**</exclude>
+						<exclude>**/config/usecase/**</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
